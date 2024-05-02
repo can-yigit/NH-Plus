@@ -1,4 +1,16 @@
+body {
+    var(--White)
+}
+
 .vBox{
-    -fx-background-color: navy;
-    -fx-border-color: rgb(142, 142, 142);
+    -fx-background-color: #4b4b4b;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+.select-button {
+    -fx-font-size: 15px;
+    -fx-background-color: #ffffff;
+    -fx-border-color: none;
+}
+.select-button:pressed {
+    -fx-background-color: #a1b5ff;
 }
