@@ -9,8 +9,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import static de.hitec.nhplus.utils.DateConverter.convertStringToLocalDate;
-import static de.hitec.nhplus.utils.DateConverter.convertStringToLocalTime;
+import static de.hitec.nhplus.utils.DateConverter.*;
 
 /**
  * Call static class provides to static methods to set up and wipe the database. It uses the class ConnectionBuilder
@@ -27,11 +26,13 @@ public class SetUpDB {
     public static void setUpDb() {
         Connection connection = ConnectionBuilder.getConnection();
         SetUpDB.wipeDb(connection);
-        SetUpDB.setUpTablePatient(connection);
-        SetUpDB.setUpTableTreatment(connection);
         SetUpDB.setUpTableCaregiver(connection);
         SetUpDB.setUpCaregiver();
+
+        SetUpDB.setUpTablePatient(connection);
         SetUpDB.setUpPatients();
+
+        SetUpDB.setUpTableTreatment(connection);
         SetUpDB.setUpTreatments();
     }
 
@@ -42,6 +43,7 @@ public class SetUpDB {
         try (Statement statement = connection.createStatement()) {
             statement.execute("DROP TABLE patient");
             statement.execute("DROP TABLE treatment");
+            statement.execute("DROP TABLE caregiver");
         } catch (SQLException exception) {
             System.out.println(exception.getMessage());
         }
@@ -63,25 +65,6 @@ public class SetUpDB {
             System.out.println(exception.getMessage());
         }
     }
-
-    private static void setUpTableTreatment(Connection connection) {
-        final String SQL = "CREATE TABLE IF NOT EXISTS treatment (" +
-                "   tid INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "   pid INTEGER NOT NULL, " +
-                "   treatment_date TEXT NOT NULL, " +
-                "   begin TEXT NOT NULL, " +
-                "   end TEXT NOT NULL, " +
-                "   description TEXT NOT NULL, " +
-                "   remark TEXT NOT NULL," +
-                "   FOREIGN KEY (pid) REFERENCES patient (pid) ON DELETE CASCADE " +
-                ");";
-
-        try (Statement statement = connection.createStatement()) {
-            statement.execute(SQL);
-        } catch (SQLException exception) {
-            System.out.println(exception.getMessage());
-        }
-    }
     private static void setUpTableCaregiver(Connection connection) {
         final String SQL = "CREATE TABLE IF NOT EXISTS caregiver (" +
                 "   cid INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -95,6 +78,26 @@ public class SetUpDB {
             System.out.println(exception.getMessage());
         }
     }
+    private static void setUpTableTreatment(Connection connection) {
+        final String SQL = "CREATE TABLE IF NOT EXISTS treatment (" +
+                "   tid INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "   pid INTEGER NOT NULL, " +
+                "   cid INTEGER, " +
+                "   treatment_date TEXT NOT NULL, " +
+                "   begin TEXT NOT NULL, " +
+                "   end TEXT NOT NULL, " +
+                "   description TEXT NOT NULL, " +
+                "   remark TEXT NOT NULL," +
+                "   FOREIGN KEY (pid) REFERENCES patient (pid) ON DELETE CASCADE " +
+                "   FOREIGN KEY (cid) REFERENCES caregiver (cid) ON DELETE CASCADE " +
+                ");";
+        try (Statement statement = connection.createStatement()) {
+            statement.execute(SQL);
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+        }
+    }
+
 
 
     private static void setUpPatients() {
@@ -111,30 +114,20 @@ public class SetUpDB {
             exception.printStackTrace();
         }
     }
-
-    private static void setUpTreatments() {
-        try {
-            TreatmentDao dao = DaoFactory.getDaoFactory().createTreatmentDao();
-            dao.create(new Treatment(1, 1, convertStringToLocalDate("2023-06-03"), convertStringToLocalTime("11:00"), convertStringToLocalTime("15:00"), "Gespräch", "Der Patient hat enorme Angstgefühle und glaubt, er sei überfallen worden. Ihm seien alle Wertsachen gestohlen worden.\nPatient beruhigt sich erst, als alle Wertsachen im Zimmer gefunden worden sind."));
-            dao.create(new Treatment(2, 1, convertStringToLocalDate("2023-06-05"), convertStringToLocalTime("11:00"), convertStringToLocalTime("12:30"), "Gespräch", "Patient irrt auf der Suche nach gestohlenen Wertsachen durch die Etage und bezichtigt andere Bewohner des Diebstahls.\nPatient wird in seinen Raum zurückbegleitet und erhält Beruhigungsmittel."));
-            dao.create(new Treatment(3, 2, convertStringToLocalDate("2023-06-04"), convertStringToLocalTime("07:30"), convertStringToLocalTime("08:00"), "Waschen", "Patient mit Waschlappen gewaschen und frisch angezogen. Patient gewendet."));
-            dao.create(new Treatment(4, 1, convertStringToLocalDate("2023-06-06"), convertStringToLocalTime("15:10"), convertStringToLocalTime("16:00"), "Spaziergang", "Spaziergang im Park, Patient döst  im Rollstuhl ein"));
-            dao.create(new Treatment(8, 1, convertStringToLocalDate("2023-06-08"), convertStringToLocalTime("15:00"), convertStringToLocalTime("16:00"), "Spaziergang", "Parkspaziergang; Patient ist heute lebhafter und hat klare Momente; erzählt von seiner Tochter"));
-            dao.create(new Treatment(9, 2, convertStringToLocalDate("2023-06-07"), convertStringToLocalTime("11:00"), convertStringToLocalTime("11:30"), "Waschen", "Waschen per Dusche auf einem Stuhl; Patientin gewendet;"));
-            dao.create(new Treatment(12, 5, convertStringToLocalDate("2023-06-08"), convertStringToLocalTime("15:00"), convertStringToLocalTime("15:30"), "Physiotherapie", "Übungen zur Stabilisation und Mobilisierung der Rückenmuskulatur"));
-            dao.create(new Treatment(14, 4, convertStringToLocalDate("2023-08-24"), convertStringToLocalTime("09:30"), convertStringToLocalTime("10:15"), "KG", "Lympfdrainage"));
-            dao.create(new Treatment(16, 6, convertStringToLocalDate("2023-08-31"), convertStringToLocalTime("13:30"), convertStringToLocalTime("13:45"), "Toilettengang", "Hilfe beim Toilettengang; Patientin klagt über Schmerzen beim Stuhlgang. Gabe von Iberogast"));
-            dao.create(new Treatment(17, 6, convertStringToLocalDate("2023-09-01"), convertStringToLocalTime("16:00"), convertStringToLocalTime("17:00"), "KG", "Massage der Extremitäten zur Verbesserung der Durchblutung"));
-            dao.create(new Treatment(18, 7, convertStringToLocalDate("2023-10-01"), convertStringToLocalTime("10:00"), convertStringToLocalTime("13:20"), "Noten vergabe", "Das gibt eine 6 noich!"));
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
-    }
     private static void setUpCaregiver() {
         try {
             CaregiverDao dao = DaoFactory.getDaoFactory().createCaregiverDAO();
             dao.create(new Caregiver("Björn", "Gütter", "019421201"));
-         } catch (SQLException exception) {
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+    }
+    private static void setUpTreatments() {
+        try {
+            TreatmentDao dao = DaoFactory.getDaoFactory().createTreatmentDao();
+            dao.create(new Treatment(1, 3, 1, convertStringToLocalDate("2023-06-03"), convertStringToLocalTime("11:00"), convertStringToLocalTime("15:00"), "Gespräch", "Der Patient hat enorme Angstgefühle und glaubt, er sei überfallen worden. Ihm seien alle Wertsachen gestohlen worden.\nPatient beruhigt sich erst, als alle Wertsachen im Zimmer gefunden worden sind."));
+            dao.create(new Treatment(1, 2, 1, convertStringToLocalDate("2023-07-03"), convertStringToLocalTime("11:00"), convertStringToLocalTime("15:00"), "Gespräch", "Der Patient hat enorme Angstgefühle und glaubt, er sei überfallen worden. Ihm seien alle Wertsachen gestohlen worden.\nPatient beruhigt sich erst, als alle Wertsachen im Zimmer gefunden worden sind."));
+        } catch (SQLException exception) {
             exception.printStackTrace();
         }
     }

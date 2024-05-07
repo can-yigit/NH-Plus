@@ -8,6 +8,7 @@ import java.time.LocalTime;
 public class Treatment {
     private long tid;
     private final long pid;
+    private final long cid;
     private LocalDate date;
     private LocalTime begin;
     private LocalTime end;
@@ -25,16 +26,16 @@ public class Treatment {
      * @param description Description of the treatment.
      * @param remarks Remarks to the treatment.
      */
-    public Treatment(long pid, LocalDate date, LocalTime begin,
+    public Treatment(long pid, long cid, LocalDate date, LocalTime begin,
                      LocalTime end, String description, String remarks) {
         this.pid = pid;
+        this.cid = cid;
         this.date = date;
         this.begin = begin;
         this.end = end;
         this.description = description;
         this.remarks = remarks;
     }
-
     /**
      * Constructor to initiate an object of class <code>Treatment</code> with the given parameter. Use this constructor
      * to initiate objects, which are already persisted and have a treatment id (tid).
@@ -47,25 +48,26 @@ public class Treatment {
      * @param description Description of the treatment.
      * @param remarks Remarks to the treatment.
      */
-    public Treatment(long tid, long pid, LocalDate date, LocalTime begin,
+    public Treatment(long tid, long pid, long cid, LocalDate date, LocalTime begin,
                      LocalTime end, String description, String remarks) {
         this.tid = tid;
         this.pid = pid;
+        this.cid = cid;
         this.date = date;
         this.begin = begin;
         this.end = end;
         this.description = description;
         this.remarks = remarks;
     }
-
     public long getTid() {
         return tid;
     }
-
     public long getPid() {
         return this.pid;
     }
-
+    public long getCid(){
+        return this.cid;
+    }
     public String getDate() {
         return date.toString();
     }
@@ -109,6 +111,7 @@ public class Treatment {
     public String toString() {
         return "\nBehandlung" + "\nTID: " + this.tid +
                 "\nPID: " + this.pid +
+                "\nCID: " + this.cid +
                 "\nDate: " + this.date +
                 "\nBegin: " + this.begin +
                 "\nEnd: " + this.end +

@@ -1,10 +1,7 @@
 package de.hitec.nhplus.model;
 
-import de.hitec.nhplus.utils.DateConverter;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
-
-import java.time.LocalDate;
 
 /**
  * Caregivers work in a NURSING home and provide care for patients.
@@ -89,6 +86,9 @@ public class Caregiver extends Person {
         this.phoneNumber.set(phoneNumber);
     }
 
+    public String getFullName() {
+        return firstName.get() + " " + surname.get();
+    }
 
     @Override
     public String toString() {

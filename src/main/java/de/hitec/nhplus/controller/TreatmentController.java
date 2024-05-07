@@ -1,8 +1,7 @@
 package de.hitec.nhplus.controller;
 
-import de.hitec.nhplus.datastorage.DaoFactory;
-import de.hitec.nhplus.datastorage.PatientDao;
-import de.hitec.nhplus.datastorage.TreatmentDao;
+import de.hitec.nhplus.datastorage.*;
+import de.hitec.nhplus.model.Caregiver;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
@@ -22,6 +21,12 @@ public class TreatmentController {
     private Label labelCareLevel;
 
     @FXML
+    private Label labelCareGiver;
+
+    @FXML
+    private Label labelCareGiverPhoneNumber;
+
+    @FXML
     private TextField textFieldBegin;
 
     @FXML
@@ -39,24 +44,28 @@ public class TreatmentController {
     private AllTreatmentController controller;
     private Stage stage;
     private Patient patient;
+    private Caregiver caregiver;
     private Treatment treatment;
 
     public void initializeController(AllTreatmentController controller, Stage stage, Treatment treatment) {
         this.stage = stage;
         this.controller= controller;
         PatientDao pDao = DaoFactory.getDaoFactory().createPatientDAO();
+        CaregiverDao cDao = DaoFactory.getDaoFactory().createCaregiverDAO();
         try {
             this.patient = pDao.read((int) treatment.getPid());
+            this.caregiver = cDao.read((int) treatment.getCid());
             this.treatment = treatment;
             showData();
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
     }
-
     private void showData(){
         this.labelPatientName.setText(patient.getSurname()+", "+patient.getFirstName());
         this.labelCareLevel.setText(patient.getCareLevel());
+        this.labelCareGiver.setText(caregiver.getFullName());
+        this.labelCareGiverPhoneNumber.setText(caregiver.getPhoneNumber());
         LocalDate date = DateConverter.convertStringToLocalDate(treatment.getDate());
         this.datePicker.setValue(date);
         this.textFieldBegin.setText(this.treatment.getBegin());
@@ -64,7 +73,6 @@ public class TreatmentController {
         this.textFieldDescription.setText(this.treatment.getDescription());
         this.textAreaRemarks.setText(this.treatment.getRemarks());
     }
-
     @FXML
     public void handleChange(){
         this.treatment.setDate(this.datePicker.getValue().toString());
