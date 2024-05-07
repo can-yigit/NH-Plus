@@ -17,8 +17,8 @@
       </HBox>
       <GridPane hgap="10.0" layoutX="14.0" layoutY="14.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="100.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="126.0" minWidth="10.0" prefWidth="120.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="188.0" minWidth="10.0" prefWidth="164.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
         </columnConstraints>
@@ -40,7 +40,9 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Label>
-            <Label text="Datum:" GridPane.rowIndex="3">
+            <Label text="Pfleger Auswählen:" GridPane.rowIndex="1" />
+            <ComboBox fx:id="comboBoxCareGiverSelection" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+             <Label text="Datum:" GridPane.rowIndex="3">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
