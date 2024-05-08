@@ -4,6 +4,7 @@ import de.hitec.nhplus.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
@@ -14,6 +15,10 @@ public class MainWindowController {
     private BorderPane mainBorderPane;
 
     @FXML
+    private Label username;
+    private AuthenticatorController auth;
+
+    @FXML
     private void handleShowAllPatient(ActionEvent event) {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("/de/hitec/nhplus/AllPatientView.fxml"));
         try {
@@ -22,7 +27,6 @@ public class MainWindowController {
             exception.printStackTrace();
         }
     }
-
     @FXML
     private void handleShowAllTreatments(ActionEvent event) {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("/de/hitec/nhplus/AllTreatmentView.fxml"));
@@ -32,7 +36,6 @@ public class MainWindowController {
             exception.printStackTrace();
         }
     }
-
     @FXML
     private void handleShowAllCareGiver(ActionEvent event) {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("/de/hitec/nhplus/AllCaregiverView.fxml"));
@@ -41,5 +44,11 @@ public class MainWindowController {
         } catch (IOException exception) {
             exception.printStackTrace();
         }
+    }
+
+
+    public void setUserSession(AuthenticatorController authenticatorController) {
+        this.auth = authenticatorController;
+        username.setText(auth.getSession().getFullName());
     }
 }

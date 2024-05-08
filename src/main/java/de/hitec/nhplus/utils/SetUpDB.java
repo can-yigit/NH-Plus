@@ -4,10 +4,12 @@ import de.hitec.nhplus.datastorage.*;
 import de.hitec.nhplus.model.Caregiver;
 import de.hitec.nhplus.model.Patient;
 import de.hitec.nhplus.model.Treatment;
+import de.hitec.nhplus.model.User;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Set;
 
 import static de.hitec.nhplus.utils.DateConverter.*;
 
@@ -26,6 +28,10 @@ public class SetUpDB {
     public static void setUpDb() {
         Connection connection = ConnectionBuilder.getConnection();
         SetUpDB.wipeDb(connection);
+
+        SetUpDB.setUpTablUser(connection);
+        SetUpDB.setUpUser();
+
         SetUpDB.setUpTableCaregiver(connection);
         SetUpDB.setUpCaregiver();
 
@@ -34,6 +40,8 @@ public class SetUpDB {
 
         SetUpDB.setUpTableTreatment(connection);
         SetUpDB.setUpTreatments();
+
+
     }
 
     /**
@@ -44,11 +52,26 @@ public class SetUpDB {
             statement.execute("DROP TABLE patient");
             statement.execute("DROP TABLE treatment");
             statement.execute("DROP TABLE caregiver");
+            statement.execute("DROP TABLE users");
         } catch (SQLException exception) {
             System.out.println(exception.getMessage());
         }
     }
-
+    private static void setUpTablUser(Connection connection) {
+        final String SQL = "CREATE TABLE IF NOT EXISTS users (" +
+                "   uid INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "   firstname TEXT NOT NULL, " +
+                "   surname TEXT NOT NULL, " +
+                "   phonenumber TEXT NOT NULL, " +
+                "   permissions TEXT NOT NULL, " +
+                "   hashedpassword TEXT NOT NULL " +
+                ");";
+        try (Statement statement = connection.createStatement()) {
+            statement.execute(SQL);
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+        }
+    }
     private static void setUpTablePatient(Connection connection) {
         final String SQL = "CREATE TABLE IF NOT EXISTS patient (" +
                 "   pid INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -99,7 +122,14 @@ public class SetUpDB {
     }
 
 
-
+    private static void setUpUser() {
+        try {
+            UserDao dao = DaoFactory.getDaoFactory().createUserDAO();
+            dao.create(new User("Schwerk", "Berg", "0000187", "Administrator", "1234"));
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+    }
     private static void setUpPatients() {
         try {
             PatientDao dao = DaoFactory.getDaoFactory().createPatientDAO();
