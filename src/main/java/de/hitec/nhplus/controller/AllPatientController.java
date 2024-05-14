@@ -7,10 +7,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import de.hitec.nhplus.model.Patient;
@@ -72,6 +69,8 @@ public class AllPatientController {
 
     @FXML
     private TextField textFieldAssets;
+    @FXML
+    private Button buttonBlock;
 
     private final ObservableList<Patient> patients = FXCollections.observableArrayList();
     private PatientDao dao;
@@ -110,14 +109,17 @@ public class AllPatientController {
         this.tableView.setItems(this.patients);
 
         this.buttonDelete.setDisable(true);
+        this.buttonBlock.setDisable(true);
         this.tableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Patient>() {
             @Override
             public void changed(ObservableValue<? extends Patient> observableValue, Patient oldPatient, Patient newPatient) {;
                 AllPatientController.this.buttonDelete.setDisable(newPatient == null);
+                AllPatientController.this.buttonBlock.setDisable(newPatient == null);
             }
         });
 
         this.buttonAdd.setDisable(true);
+
         ChangeListener<String> inputNewPatientListener = (observableValue, oldText, newText) ->
                 AllPatientController.this.buttonAdd.setDisable(!AllPatientController.this.areInputDataValid());
         this.textFieldSurname.textProperty().addListener(inputNewPatientListener);
@@ -236,6 +238,21 @@ public class AllPatientController {
             } catch (SQLException exception) {
                 exception.printStackTrace();
             }
+        }
+    }
+
+    public void handleBlock() throws SQLException{
+        Patient selectedItem = this.tableView.getSelectionModel().getSelectedItem();
+        DaoFactory.getDaoFactory().createPatientDAO().geStatus(selectedItem.getPid());
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Bestätigung");
+        alert.setHeaderText("Möchten Sie den Eintrag sperren?");
+        alert.setContentText("Klicken Sie auf OK, um fortzufahren.");
+
+        ButtonType result = alert.showAndWait().orElse(ButtonType.CANCEL);
+
+        if (result == ButtonType.OK) {
+            this.tableView.getItems().remove(selectedItem);
         }
     }
 

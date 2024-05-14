@@ -2,6 +2,7 @@ package de.hitec.nhplus.datastorage;
 
 import de.hitec.nhplus.model.Patient;
 import de.hitec.nhplus.utils.DateConverter;
+import org.controlsfx.control.spreadsheet.SpreadsheetCell;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -112,11 +113,15 @@ public class PatientDao extends DaoImp<Patient> {
     protected ArrayList<Patient> getListFromResultSet(ResultSet result) throws SQLException {
         ArrayList<Patient> list = new ArrayList<>();
         while (result.next()) {
-            LocalDate date = DateConverter.convertStringToLocalDate(result.getString(4));
-            Patient patient = new Patient(result.getInt(1), result.getString(2),
-                    result.getString(3), date,
-                    result.getString(5), result.getString(6), result.getString(7));
-            list.add(patient);
+            boolean status = result.getBoolean(8);
+
+            if (status) {
+                LocalDate date = DateConverter.convertStringToLocalDate(result.getString(4));
+                Patient patient = new Patient(result.getInt(1), result.getString(2),
+                        result.getString(3), date,
+                        result.getString(5), result.getString(6), result.getString(7));
+                list.add(patient);
+            }
         }
         return list;
     }
@@ -128,6 +133,7 @@ public class PatientDao extends DaoImp<Patient> {
      * @param patient Patient object to update.
      * @return <code>PreparedStatement</code> to update the given patient.
      */
+
     @Override
     protected PreparedStatement getUpdateStatement(Patient patient) {
         PreparedStatement preparedStatement = null;
@@ -168,6 +174,23 @@ public class PatientDao extends DaoImp<Patient> {
             final String SQL = "DELETE FROM patient WHERE pid = ?";
             preparedStatement = this.connection.prepareStatement(SQL);
             preparedStatement.setLong(1, pid);
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+        return preparedStatement;
+    }
+
+    @Override
+    protected PreparedStatement getStatus(long key) {
+        PreparedStatement preparedStatement = null;
+        try {
+            final String SQL =
+                    "UPDATE patient SET " +
+                            "status = ? " +
+                            "WHERE pid = ?";
+            preparedStatement = this.connection.prepareStatement(SQL);
+            preparedStatement.setBoolean(1, false);
+            preparedStatement.setLong(2, key);
         } catch (SQLException exception) {
             exception.printStackTrace();
         }

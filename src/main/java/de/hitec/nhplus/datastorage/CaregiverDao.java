@@ -157,4 +157,9 @@ public class CaregiverDao extends DaoImp<Caregiver> {
         }
         return preparedStatement;
     }
+
+    @Override
+    protected PreparedStatement getStatus(long key) {
+        return null;
+    }
 }
