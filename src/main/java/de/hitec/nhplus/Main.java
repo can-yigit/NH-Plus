@@ -1,7 +1,10 @@
 package de.hitec.nhplus;
 
+import de.hitec.nhplus.controller.DatabaseChecker;
 import de.hitec.nhplus.datastorage.ConnectionBuilder;
 
+import de.hitec.nhplus.datastorage.DaoFactory;
+import de.hitec.nhplus.datastorage.PatientDao;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +13,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.Connection;
+
+import de.hitec.nhplus.controller.DatabaseChecker;
 
 public class Main extends Application {
 
@@ -18,6 +24,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
+        getDatabaseChecker();
         mainWindow();
     }
 
@@ -40,6 +47,12 @@ public class Main extends Application {
         } catch (IOException exception) {
             exception.printStackTrace();
         }
+    }
+
+    public void getDatabaseChecker(){
+        Connection connection = ConnectionBuilder.getConnection();
+        DatabaseChecker databaseChecker = new DatabaseChecker(connection);
+        databaseChecker.scheduleDatabaseCheck();
     }
 
     public static void main(String[] args) {

@@ -2,11 +2,14 @@ package de.hitec.nhplus.datastorage;
 
 import de.hitec.nhplus.model.Patient;
 import de.hitec.nhplus.utils.DateConverter;
-import org.controlsfx.control.spreadsheet.SpreadsheetCell;
 
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * Implements the Interface <code>DaoImp</code>. Overrides methods to generate specific <code>PreparedStatements</code>,
@@ -83,6 +86,11 @@ public class PatientDao extends DaoImp<Patient> {
                 result.getString(5),
                 result.getString(6),
                 result.getString(7));
+    }
+
+    @Override
+    protected PreparedStatement getDateOfBirth() {
+        return null;
     }
 
     /**
@@ -196,4 +204,13 @@ public class PatientDao extends DaoImp<Patient> {
         }
         return preparedStatement;
     }
+
+    @Override
+    protected PreparedStatement dateOfBirth(long key) {
+        PreparedStatement statement = null;
+
+        return statement;
+    }
+
+
 }
