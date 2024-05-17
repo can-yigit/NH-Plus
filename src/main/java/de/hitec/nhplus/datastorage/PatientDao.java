@@ -101,9 +101,10 @@ public class PatientDao extends DaoImp<Patient> {
      */
     @Override
     protected PreparedStatement getReadAllStatement() {
+
         PreparedStatement statement = null;
         try {
-            final String SQL = "SELECT * FROM patient";
+            final String SQL = "SELECT * FROM patient WHERE status = 1";
             statement = this.connection.prepareStatement(SQL);
         } catch (SQLException exception) {
             exception.printStackTrace();

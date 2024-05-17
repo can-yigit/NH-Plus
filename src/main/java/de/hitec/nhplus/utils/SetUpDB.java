@@ -58,7 +58,9 @@ public class SetUpDB {
                 "   dateOfBirth TEXT NOT NULL, " +
                 "   carelevel TEXT NOT NULL, " +
                 "   roomnumber TEXT NOT NULL, " +
-                "   assets TEXt NOT NULL" +
+                "   assets TEXT NOT NULL, " +
+                "   status BOOLEAN NOT NULL DEFAULT 1, " +
+                "   currentDate TEXT NOT NULL" +
                 ");";
         try (Statement statement = connection.createStatement()) {
             statement.execute(SQL);

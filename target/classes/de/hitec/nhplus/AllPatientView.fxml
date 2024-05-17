@@ -66,6 +66,7 @@
                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                  </rowConstraints>
                  <children>
+                     <Button fx:id="buttonBlock" mnemonicParsing="false" onAction="#handleBlock" prefWidth="90.0" text="Sperren" GridPane.columnSpan="3" />
                      <Button fx:id="buttonBlock" mnemonicParsing="false" onAction="#handleBlock" prefWidth="90.0" text="Sperren" GridPane.columnSpan="2" />
                      <Button fx:id="buttonAdd" mnemonicParsing="false" onAction="#handleAdd" prefWidth="90.0" text="Hinzufügen" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
                      <Button fx:id="buttonDelete" mnemonicParsing="false" onAction="#handleDelete" prefWidth="90.0" text="Löschen" GridPane.columnIndex="1" GridPane.rowIndex="1"/>

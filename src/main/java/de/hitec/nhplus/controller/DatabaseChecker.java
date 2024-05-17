@@ -28,6 +28,9 @@ public class DatabaseChecker {
             PreparedStatement statement = this.connection.prepareStatement(SQL);
 
             ResultSet resultSet = statement.executeQuery();
+            if (!resultSet.next()){
+                return;
+            }
             while (resultSet.next()) {
                 long pID = resultSet.getLong("pid");
                 String currentDateString = resultSet.getString("currentDate");
@@ -76,7 +79,6 @@ public class DatabaseChecker {
             @Override
             public void run() {
                 checkAndDeleteOldPatients();
-                System.out.println("test");
             }
         }, 0, 45 * 60 * 1000);
     }
