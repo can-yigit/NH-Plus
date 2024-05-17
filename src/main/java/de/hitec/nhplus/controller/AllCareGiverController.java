@@ -2,7 +2,10 @@ package de.hitec.nhplus.controller;
 
 import de.hitec.nhplus.datastorage.DaoFactory;
 import de.hitec.nhplus.datastorage.CaregiverDao;
+import de.hitec.nhplus.datastorage.UserDao;
 import de.hitec.nhplus.model.Caregiver;
+import de.hitec.nhplus.model.User;
+import de.hitec.nhplus.utils.PassHash;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -54,6 +57,7 @@ public class AllCareGiverController {
 
     private final ObservableList<Caregiver> caregivers = FXCollections.observableArrayList();
     private CaregiverDao dao;
+    private UserDao udao;
 
     public AllCareGiverController() {
     }
@@ -145,8 +149,10 @@ public class AllCareGiverController {
         String firstName = this.textFieldFirstName.getText();
         String lastName = this.textFieldLastName.getText();
         String phoneNumber = this.textFieldPhoneNumber.getText();
+        this.udao = DaoFactory.getDaoFactory().createUserDAO();
         try {
             this.dao.create(new Caregiver(firstName, lastName, phoneNumber));
+            this.udao.create(new User(firstName, lastName, phoneNumber, "Caregiver", PassHash.hashPassword("DefaultPW1234!")));
         } catch (SQLException exception) {
             exception.printStackTrace();
         }

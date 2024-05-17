@@ -1,6 +1,8 @@
 package de.hitec.nhplus.datastorage;
 
 import de.hitec.nhplus.model.Caregiver;
+import de.hitec.nhplus.model.User;
+import de.hitec.nhplus.utils.PassHash;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -59,6 +61,27 @@ public class CaregiverDao extends DaoImp<Caregiver> {
             exception.printStackTrace();
         }
         return preparedStatement;
+    }
+
+    public Caregiver getUserByCredentials(String username, String surname, String phonenumber) throws SQLException {
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        Caregiver user = null;
+        try {
+            final String SQL = "SELECT * FROM caregiver WHERE firstname = ? AND surname = ? AND phonenumber = ?";
+            preparedStatement = this.connection.prepareStatement(SQL);
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, surname);
+            preparedStatement.setString(3, phonenumber);
+
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                user = getInstanceFromResultSet(resultSet);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return user;
     }
 
     /**

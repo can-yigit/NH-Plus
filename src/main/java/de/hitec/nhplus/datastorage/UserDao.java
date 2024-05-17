@@ -30,19 +30,30 @@ public class UserDao extends DaoImp<User> {
     protected PreparedStatement getCreateStatement(User user) {
         PreparedStatement preparedStatement = null;
         try {
-            final String SQL = "INSERT INTO users (firstname, surname, phoneNumber, permissions, hashedpassword) " +
-                    "VALUES (?, ?, ?, ?, ?)";
+            final String SQL;
+            if (user.hasCareGiverID()) {
+                SQL = "INSERT INTO users (firstname, surname, phoneNumber, permissions, hashedPassword, cid) " +
+                        "VALUES (?, ?, ?, ?, ?, ?)";
+            } else {
+                SQL = "INSERT INTO users (firstname, surname, phoneNumber, permissions, hashedPassword) " +
+                        "VALUES (?, ?, ?, ?, ?)";
+            }
             preparedStatement = this.connection.prepareStatement(SQL);
             preparedStatement.setString(1, user.getFirstName());
             preparedStatement.setString(2, user.getSurname());
             preparedStatement.setString(3, user.getPhoneNumber());
             preparedStatement.setString(4, user.getPermissions());
             preparedStatement.setString(5, user.getHashedPassword());
+            if (user.hasCareGiverID()) {
+                preparedStatement.setLong(6, user.getCaregiverId());
+            }
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
         return preparedStatement;
     }
+
+
 
     /**
      * Generates a <code>PreparedStatement</code> to query a user by a given user id (uid).
@@ -88,13 +99,16 @@ public class UserDao extends DaoImp<User> {
      */
     @Override
     protected User getInstanceFromResultSet(ResultSet result) throws SQLException {
+        String cid = result.getString("cid");
+        long caregiverId = (cid == null) ? 0 : Long.parseLong(cid);
+
         return new User(
-                result.getLong("uid"),
                 result.getString("firstname"),
                 result.getString("surname"),
                 result.getString("phoneNumber"),
                 result.getString("permissions"),
-                result.getString("hashedPassword"));
+                result.getString("hashedpassword"),
+                caregiverId, result.getLong("uid"));
     }
 
     /**
@@ -126,7 +140,6 @@ public class UserDao extends DaoImp<User> {
         ArrayList<User> list = new ArrayList<>();
         while (result.next()) {
             User user = new User(
-                    result.getLong("uid"),
                     result.getString("firstname"),
                     result.getString("surname"),
                     result.getString("phoneNumber"),
@@ -148,26 +161,43 @@ public class UserDao extends DaoImp<User> {
     protected PreparedStatement getUpdateStatement(User user) {
         PreparedStatement preparedStatement = null;
         try {
-            final String SQL =
-                    "UPDATE users SET " +
-                            "firstname = ?, " +
-                            "surname = ?, " +
-                            "phoneNumber = ?, " +
-                            "permissions = ?, " +
-                            "hashedPassword = ? " +
-                            "WHERE uid = ?";
+            final String SQL;
+            if (user.hasCareGiverID()) {
+                SQL = "UPDATE users SET " +
+                        "firstname = ?, " +
+                        "surname = ?, " +
+                        "phoneNumber = ?, " +
+                        "permissions = ?, " +
+                        "hashedPassword = ?, " +
+                        "cid = ? " +
+                        "WHERE uid = ?";
+            } else {
+                SQL = "UPDATE users SET " +
+                        "firstname = ?, " +
+                        "surname = ?, " +
+                        "phoneNumber = ?, " +
+                        "permissions = ?, " +
+                        "hashedPassword = ? " +
+                        "WHERE uid = ?";
+            }
             preparedStatement = this.connection.prepareStatement(SQL);
             preparedStatement.setString(1, user.getFirstName());
             preparedStatement.setString(2, user.getSurname());
             preparedStatement.setString(3, user.getPhoneNumber());
             preparedStatement.setString(4, user.getPermissions());
             preparedStatement.setString(5, user.getHashedPassword());
-            preparedStatement.setLong(6, user.getUid());
+            if (user.hasCareGiverID()) {
+                preparedStatement.setLong(6, user.getCaregiverId());
+                preparedStatement.setLong(7, user.getUid());
+            } else {
+                preparedStatement.setLong(6, user.getUid());
+            }
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
         return preparedStatement;
     }
+
 
     /**
      * Generates a <code>PreparedStatement</code> to delete a user with the given id.
