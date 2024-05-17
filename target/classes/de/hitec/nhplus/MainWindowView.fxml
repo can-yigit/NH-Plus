@@ -7,8 +7,22 @@
 
 <BorderPane fx:id="mainBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.hitec.nhplus.controller.MainWindowController">
    <left>
-      <VBox id="vBox" alignment="CENTER" prefHeight="700.0" prefWidth="204.0" spacing="50.0" styleClass="vBox" stylesheets="@Application.css" BorderPane.alignment="CENTER">
+      <VBox id="vBox" alignment="CENTER" prefHeight="700.0" prefWidth="228.0" spacing="50.0" styleClass="vBox" stylesheets="@Application.css" BorderPane.alignment="CENTER">
          <children>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="10.0" layoutY="75.0" text="Willkommen Zurück!" textFill="WHITE">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="username" layoutX="10.0" layoutY="104.0" prefHeight="29.0" prefWidth="199.0" text="Name" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
             <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleShowAllPatient" prefHeight="29.0" prefWidth="130.0" styleClass="select-button" stylesheets="@Application.css" text="Patienten/innen">
                <VBox.margin>
                   <Insets />
@@ -27,6 +41,7 @@
                   <Font size="12.0" />
                </font></Button>
             <Button alignment="CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="391.0" mnemonicParsing="false" onAction="#handleShowAllCareGiver" prefWidth="130.0" styleClass="select-button" text="Pfleger/innen" />
+            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="59.0" layoutY="550.0" mnemonicParsing="false" onAction="#handleShowAllAppointment" prefWidth="130.0" styleClass="select-button" text="Termin Kalender" />
          </children>
          <opaqueInsets>
             <Insets />

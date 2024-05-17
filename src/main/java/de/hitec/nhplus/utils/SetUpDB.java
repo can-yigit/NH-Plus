@@ -9,7 +9,6 @@ import de.hitec.nhplus.model.User;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Set;
 
 import static de.hitec.nhplus.utils.DateConverter.*;
 
@@ -29,9 +28,6 @@ public class SetUpDB {
         Connection connection = ConnectionBuilder.getConnection();
         SetUpDB.wipeDb(connection);
 
-        SetUpDB.setUpTablUser(connection);
-        SetUpDB.setUpUser();
-
         SetUpDB.setUpTableCaregiver(connection);
         SetUpDB.setUpCaregiver();
 
@@ -40,6 +36,9 @@ public class SetUpDB {
 
         SetUpDB.setUpTableTreatment(connection);
         SetUpDB.setUpTreatments();
+
+        SetUpDB.setUpTablUser(connection);
+        SetUpDB.setUpUser();
 
 
     }
@@ -60,11 +59,13 @@ public class SetUpDB {
     private static void setUpTablUser(Connection connection) {
         final String SQL = "CREATE TABLE IF NOT EXISTS users (" +
                 "   uid INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "   cid INTEGER, " +
                 "   firstname TEXT NOT NULL, " +
                 "   surname TEXT NOT NULL, " +
                 "   phonenumber TEXT NOT NULL, " +
                 "   permissions TEXT NOT NULL, " +
-                "   hashedpassword TEXT NOT NULL " +
+                "   hashedpassword TEXT NOT NULL, " +
+                "   FOREIGN KEY (cid) REFERENCES caregiver (cid) ON DELETE CASCADE " +
                 ");";
         try (Statement statement = connection.createStatement()) {
             statement.execute(SQL);
@@ -125,7 +126,8 @@ public class SetUpDB {
     private static void setUpUser() {
         try {
             UserDao dao = DaoFactory.getDaoFactory().createUserDAO();
-            dao.create(new User("Schwerk", "Berg", "0000187", "Administrator", "1234"));
+            dao.create(new User("Schwerk", "Berg", "0000187", "Administrator", PassHash.hashPassword("1234")));
+            dao.create(new User("NHPlus", "Auf die #1", "187 / 361", "Caregiver", PassHash.hashPassword("1234"), 1));
         } catch (SQLException exception) {
             exception.printStackTrace();
         }

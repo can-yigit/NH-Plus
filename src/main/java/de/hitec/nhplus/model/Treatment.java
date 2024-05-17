@@ -59,6 +59,7 @@ public class Treatment {
         this.description = description;
         this.remarks = remarks;
     }
+
     public long getTid() {
         return tid;
     }
