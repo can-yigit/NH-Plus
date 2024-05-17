@@ -230,13 +230,22 @@ public class AllPatientController {
      */
     @FXML
     public void handleDelete() {
-        Patient selectedItem = this.tableView.getSelectionModel().getSelectedItem();
-        if (selectedItem != null) {
-            try {
-                DaoFactory.getDaoFactory().createPatientDAO().deleteById(selectedItem.getPid());
-                this.tableView.getItems().remove(selectedItem);
-            } catch (SQLException exception) {
-                exception.printStackTrace();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Bestätigung");
+        alert.setHeaderText("Möchten Sie den Eintrag löschen?");
+        alert.setContentText("Klicken Sie auf OK, um fortzufahren.");
+
+        ButtonType result = alert.showAndWait().orElse(ButtonType.CANCEL);
+
+        if (result == ButtonType.OK) {
+            Patient selectedItem = this.tableView.getSelectionModel().getSelectedItem();
+            if (selectedItem != null) {
+                try {
+                    DaoFactory.getDaoFactory().createPatientDAO().deleteById(selectedItem.getPid());
+                    this.tableView.getItems().remove(selectedItem);
+                } catch (SQLException exception) {
+                    exception.printStackTrace();
+                }
             }
         }
     }
@@ -270,8 +279,11 @@ public class AllPatientController {
         String careLevel = this.textFieldCareLevel.getText();
         String roomNumber = this.textFieldRoomNumber.getText();
         String assets = this.textFieldAssets.getText();
+        LocalDate currentDate = LocalDate.now();
+
+
         try {
-            this.dao.create(new Patient(firstName, surname, date, careLevel, roomNumber, assets));
+            this.dao.create(new Patient(firstName, surname, date, careLevel, roomNumber, assets, currentDate));
         } catch (SQLException exception) {
             exception.printStackTrace();
         }

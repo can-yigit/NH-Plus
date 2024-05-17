@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.Period;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Timer;
@@ -25,29 +24,29 @@ public class DatabaseChecker {
         try {
             LocalDate currentDate = LocalDate.now();
 
-            final String SQL = "SELECT pid, dateOfBirth FROM patient";
+            final String SQL = "SELECT pid, currentDate FROM patient";
             PreparedStatement statement = this.connection.prepareStatement(SQL);
 
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                long patientID = resultSet.getLong("pid");
-                String dateOfBirthString = resultSet.getString("dateOfBirth");
+                long pID = resultSet.getLong("pid");
+                String currentDateString = resultSet.getString("currentDate");
 
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                Date dateOfBirth = dateFormat.parse(dateOfBirthString);
+                Date getCurrentDateFromDatabase = dateFormat.parse(currentDateString);
 
                 Calendar cal = Calendar.getInstance();
-                cal.setTime(dateOfBirth);
+                cal.setTime(getCurrentDateFromDatabase);
 
                 int year = cal.get(Calendar.YEAR);
                 int month = cal.get(Calendar.MONTH) + 1;
                 int dayOfMonth = cal.get(Calendar.DAY_OF_MONTH);
 
-                LocalDate birthDate = LocalDate.of(year, month, dayOfMonth);
+                LocalDate  date = LocalDate.of(year, month, dayOfMonth);
 
-                LocalDate calculatedDate = birthDate.plusYears(30);
+                LocalDate calculatedDate = date.plusYears(30);
                 if (calculatedDate.equals(currentDate)) {
-                    deletePatientData(patientID);
+                    deletePatientData(pID);
                 }
             }
 
@@ -71,7 +70,7 @@ public class DatabaseChecker {
         }
     }
 
-    public void scheduleDatabaseCheck() {
+    public void repeatEvery45Minutes() {
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
