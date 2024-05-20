@@ -10,7 +10,6 @@ public abstract class DaoImp<T> implements Dao<T> {
     public DaoImp(Connection connection) {
         this.connection = connection;
     }
-
     @Override
     public void create(T t) throws SQLException {
         getCreateStatement(t).executeUpdate();

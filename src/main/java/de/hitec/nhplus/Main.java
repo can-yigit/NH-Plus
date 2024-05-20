@@ -1,6 +1,7 @@
 package de.hitec.nhplus;
 
 import de.hitec.nhplus.controller.DatabaseChecker;
+import de.hitec.nhplus.controller.AuthenticatorController;
 import de.hitec.nhplus.datastorage.ConnectionBuilder;
 
 import javafx.application.Application;
@@ -16,17 +17,15 @@ import java.sql.Connection;
 public class Main extends Application {
 
     private Stage primaryStage;
-
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
+        AuthenticatorWindow();
         getDatabaseChecker();
-        mainWindow();
     }
-
-    public void mainWindow() {
+    public void AuthenticatorWindow(){
         try {
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/de/hitec/nhplus/MainWindowView.fxml"));
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/de/hitec/nhplus/AuthenticationView.fxml"));
             BorderPane pane = loader.load();
 
             Scene scene = new Scene(pane);
@@ -35,11 +34,6 @@ public class Main extends Application {
             this.primaryStage.setResizable(false);
             this.primaryStage.show();
 
-            this.primaryStage.setOnCloseRequest(event -> {
-                ConnectionBuilder.closeConnection();
-                Platform.exit();
-                System.exit(0);
-            });
         } catch (IOException exception) {
             exception.printStackTrace();
         }

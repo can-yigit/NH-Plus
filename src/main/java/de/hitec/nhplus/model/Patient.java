@@ -16,7 +16,6 @@ public class Patient extends Person {
     private final SimpleStringProperty dateOfBirth;
     private final SimpleStringProperty careLevel;
     private final SimpleStringProperty roomNumber;
-    private final SimpleStringProperty assets;
     private LocalDate currentDate;
     private final List<Treatment> allTreatments = new ArrayList<>();
 
@@ -29,15 +28,13 @@ public class Patient extends Person {
      * @param dateOfBirth Date of birth of the patient.
      * @param careLevel Care level of the patient.
      * @param roomNumber Room number of the patient.
-     * @param assets Assets of the patient.
      */
-    public Patient(String firstName, String surname, LocalDate dateOfBirth, String careLevel, String roomNumber, String assets, LocalDate currentDate) {
+    public Patient(String firstName, String surname, LocalDate dateOfBirth, String careLevel, String roomNumber, LocalDate currentDate) {
         super(firstName, surname);
         this.dateOfBirth = new SimpleStringProperty(DateConverter.convertLocalDateToString(dateOfBirth));
         this.currentDate = currentDate;
         this.careLevel = new SimpleStringProperty(careLevel);
         this.roomNumber = new SimpleStringProperty(roomNumber);
-        this.assets = new SimpleStringProperty(assets);
     }
 
     /**
@@ -50,15 +47,13 @@ public class Patient extends Person {
      * @param dateOfBirth Date of birth of the patient.
      * @param careLevel Care level of the patient.
      * @param roomNumber Room number of the patient.
-     * @param assets Assets of the patient.
      */
-    public Patient(long pid, String firstName, String surname, LocalDate dateOfBirth, String careLevel, String roomNumber, String assets) {
+    public Patient(long pid, String firstName, String surname, LocalDate dateOfBirth, String careLevel, String roomNumber) {
         super(firstName, surname);
         this.pid = new SimpleLongProperty(pid);
         this.dateOfBirth = new SimpleStringProperty(DateConverter.convertLocalDateToString(dateOfBirth));
         this.careLevel = new SimpleStringProperty(careLevel);
         this.roomNumber = new SimpleStringProperty(roomNumber);
-        this.assets = new SimpleStringProperty(assets);
     }
 
     public LocalDate getCurrentDate() {
@@ -119,17 +114,6 @@ public class Patient extends Person {
         this.roomNumber.set(roomNumber);
     }
 
-    public String getAssets() {
-        return assets.get();
-    }
-
-    public SimpleStringProperty assetsProperty() {
-        return assets;
-    }
-
-    public void setAssets(String assets) {
-        this.assets.set(assets);
-    }
 
     /**
      * Adds a treatment to the list of treatments, if the list does not already contain the treatment.
@@ -152,7 +136,6 @@ public class Patient extends Person {
                 "\nBirthday: " + this.dateOfBirth +
                 "\nCarelevel: " + this.careLevel +
                 "\nRoomnumber: " + this.roomNumber +
-                "\nAssets: " + this.assets +
                 "\n";
     }
 }

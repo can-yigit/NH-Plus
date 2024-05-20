@@ -13,15 +13,20 @@ public class DaoFactory {
         }
         return DaoFactory.instance;
     }
-
     public TreatmentDao createTreatmentDao() {
         return new TreatmentDao(ConnectionBuilder.getConnection());
     }
-
     public PatientDao createPatientDAO() {
         return new PatientDao(ConnectionBuilder.getConnection());
     }
     public CaregiverDao createCaregiverDAO() {
         return new CaregiverDao(ConnectionBuilder.getConnection());
     }
+    public UserDao createUserDAO() {
+        return new UserDao(ConnectionBuilder.getConnection());
+    }
+    public AppointmentDao createAppointmentDAO() {
+        return new AppointmentDao(ConnectionBuilder.getConnection());
+    }
+
 }
