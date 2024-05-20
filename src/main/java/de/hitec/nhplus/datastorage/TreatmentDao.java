@@ -84,11 +84,6 @@ public class TreatmentDao extends DaoImp<Treatment> {
                 date, begin, end, result.getString(6), result.getString(7));
     }
 
-    @Override
-    protected PreparedStatement getDateOfBirth() {
-        return null;
-    }
-
     /**
      * Generates a <code>PreparedStatement</code> to query all treatments.
      *
@@ -215,11 +210,6 @@ public class TreatmentDao extends DaoImp<Treatment> {
 
     @Override
     protected PreparedStatement getStatus(long key) {
-        return null;
-    }
-
-    @Override
-    protected PreparedStatement dateOfBirth(long key) {
         return null;
     }
 }

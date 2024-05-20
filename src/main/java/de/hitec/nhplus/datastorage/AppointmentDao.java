@@ -163,4 +163,9 @@ public class AppointmentDao extends DaoImp<Appointment> {
         }
         return preparedStatement;
     }
+
+    @Override
+    protected PreparedStatement getStatus(long key) {
+        return null;
+    }
 }

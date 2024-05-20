@@ -99,11 +99,6 @@ public class CaregiverDao extends DaoImp<Caregiver> {
                 result.getString(4));
     }
 
-    @Override
-    protected PreparedStatement getDateOfBirth() {
-        return null;
-    }
-
     /**
      * Generates a <code>PreparedStatement</code> to query all caregivers.
      *
@@ -188,11 +183,6 @@ public class CaregiverDao extends DaoImp<Caregiver> {
 
     @Override
     protected PreparedStatement getStatus(long key) {
-        return null;
-    }
-
-    @Override
-    protected PreparedStatement dateOfBirth(long key) {
         return null;
     }
 }

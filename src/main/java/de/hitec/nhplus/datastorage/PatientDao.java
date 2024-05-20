@@ -87,11 +87,6 @@ public class PatientDao extends DaoImp<Patient> {
                 result.getString(6));
     }
 
-    @Override
-    protected PreparedStatement getDateOfBirth() {
-        return null;
-    }
-
     /**
      * Generates a <code>PreparedStatement</code> to query all patients.
      *
@@ -127,7 +122,7 @@ public class PatientDao extends DaoImp<Patient> {
                 LocalDate date = DateConverter.convertStringToLocalDate(result.getString(4));
                 Patient patient = new Patient(result.getInt(1), result.getString(2),
                         result.getString(3), date,
-                        result.getString(5), result.getString(6), result.getString(7));
+                        result.getString(5), result.getString(6));
                 list.add(patient);
             }
         }
@@ -202,13 +197,4 @@ public class PatientDao extends DaoImp<Patient> {
         }
         return preparedStatement;
     }
-
-    @Override
-    protected PreparedStatement dateOfBirth(long key) {
-        PreparedStatement statement = null;
-
-        return statement;
-    }
-
-
 }

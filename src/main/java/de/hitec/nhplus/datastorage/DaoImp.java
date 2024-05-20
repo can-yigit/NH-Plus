@@ -48,8 +48,6 @@ public abstract class DaoImp<T> implements Dao<T> {
 
     protected abstract T getInstanceFromResultSet(ResultSet set) throws SQLException;
 
-    protected abstract PreparedStatement getDateOfBirth();
-
     protected abstract ArrayList<T> getListFromResultSet(ResultSet set) throws SQLException;
 
     protected abstract PreparedStatement getCreateStatement(T t);
@@ -63,5 +61,4 @@ public abstract class DaoImp<T> implements Dao<T> {
     protected abstract PreparedStatement getDeleteStatement(long key);
     protected abstract PreparedStatement getStatus(long key);
 
-    protected abstract PreparedStatement dateOfBirth(long key);
 }
