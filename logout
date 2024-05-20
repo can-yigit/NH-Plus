@@ -1,0 +1,53 @@
+[33mcommit 51f4cdb0336e4d9dc8cb7ae3439b04dc697c65b0[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/feature/pdf-export[m[33m, [m[1;31morigin/feature/fix[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Merge: 417f8c6 c0256cd
+Author: Can <159456018+can-yigit@users.noreply.github.com>
+Date:   Tue May 7 11:04:48 2024 +0200
+
+    Merge pull request #2 from can-yigit/feature/caregiverextention
+    
+    Userstory 02 & 03: Pflegermodul Erweiterung
+
+[33mcommit c0256cd241f1f55412da92fc762121ab2bae980c[m[33m ([m[1;31morigin/feature/caregiverextention[m[33m)[m
+Author: Can Yigit <can96@schule.bremen.de>
+Date:   Tue May 7 11:03:18 2024 +0200
+
+    Userstory 02 & 03: Pflegermodul Erweiterung
+
+[33mcommit 417f8c6485d45936c5fee019be86f23d6e792cff[m
+Merge: fbc2d1f c08a682
+Author: Can <159456018+can-yigit@users.noreply.github.com>
+Date:   Tue May 7 08:58:07 2024 +0200
+
+    Merge pull request #1 from can-yigit/feature/caregiverview
+    
+    Userstory 01: Pflegermodul Hinzufügen
+
+[33mcommit c08a6824c5f33c44c5fe028e75cc64c564ebbc2d[m[33m ([m[1;31morigin/feature/caregiverview[m[33m)[m
+Author: Can Yigit <can96@schule.bremen.de>
+Date:   Thu May 2 16:19:42 2024 +0200
+
+    Fix GUI
+
+[33mcommit 14c5ac497f46875bf9102044f0d697cb7617873c[m
+Author: Can Yigit <can96@schule.bremen.de>
+Date:   Thu May 2 15:57:54 2024 +0200
+
+    Edit Gitignore
+
+[33mcommit bbaaa08843350b22260ef120b04fb05633110c74[m
+Author: Can Yigit <can96@schule.bremen.de>
+Date:   Thu May 2 15:38:45 2024 +0200
+
+    Userstory 01: Pflegermodul Hinzufügen
+
+[33mcommit fbc2d1fc68b1caa1831c2a18e4a6a6652e0b1455[m
+Author: Can Yigit <can96@schule.bremen.de>
+Date:   Thu May 2 15:27:24 2024 +0200
+
+    Add Template NHPlus
+
+[33mcommit 80e3856121b6543dd310f35e0df0dd004af7e2aa[m
+Author: Can <159456018+can-yigit@users.noreply.github.com>
+Date:   Mon Apr 29 13:02:23 2024 +0200
+
+    Initial commit

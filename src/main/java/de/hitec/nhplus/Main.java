@@ -1,5 +1,6 @@
 package de.hitec.nhplus;
 
+import de.hitec.nhplus.controller.DatabaseChecker;
 import de.hitec.nhplus.controller.AuthenticatorController;
 import de.hitec.nhplus.datastorage.ConnectionBuilder;
 
@@ -11,6 +12,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.Connection;
 
 public class Main extends Application {
 
@@ -19,6 +21,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         AuthenticatorWindow();
+        getDatabaseChecker();
     }
     public void AuthenticatorWindow(){
         try {
@@ -34,6 +37,12 @@ public class Main extends Application {
         } catch (IOException exception) {
             exception.printStackTrace();
         }
+    }
+
+    public void getDatabaseChecker(){
+        Connection connection = ConnectionBuilder.getConnection();
+        DatabaseChecker databaseChecker = new DatabaseChecker(connection);
+        databaseChecker.repeatEvery45Minutes();
     }
 
     public static void main(String[] args) {

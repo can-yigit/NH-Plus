@@ -217,4 +217,9 @@ public class UserDao extends DaoImp<User> {
         }
         return preparedStatement;
     }
+
+    @Override
+    protected PreparedStatement getStatus(long key) {
+        return null;
+    }
 }

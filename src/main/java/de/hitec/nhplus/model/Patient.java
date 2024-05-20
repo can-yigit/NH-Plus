@@ -16,6 +16,7 @@ public class Patient extends Person {
     private final SimpleStringProperty dateOfBirth;
     private final SimpleStringProperty careLevel;
     private final SimpleStringProperty roomNumber;
+    private LocalDate currentDate;
     private final List<Treatment> allTreatments = new ArrayList<>();
 
     /**
@@ -28,9 +29,10 @@ public class Patient extends Person {
      * @param careLevel Care level of the patient.
      * @param roomNumber Room number of the patient.
      */
-    public Patient(String firstName, String surname, LocalDate dateOfBirth, String careLevel, String roomNumber) {
+    public Patient(String firstName, String surname, LocalDate dateOfBirth, String careLevel, String roomNumber, LocalDate currentDate) {
         super(firstName, surname);
         this.dateOfBirth = new SimpleStringProperty(DateConverter.convertLocalDateToString(dateOfBirth));
+        this.currentDate = currentDate;
         this.careLevel = new SimpleStringProperty(careLevel);
         this.roomNumber = new SimpleStringProperty(roomNumber);
     }
@@ -52,6 +54,14 @@ public class Patient extends Person {
         this.dateOfBirth = new SimpleStringProperty(DateConverter.convertLocalDateToString(dateOfBirth));
         this.careLevel = new SimpleStringProperty(careLevel);
         this.roomNumber = new SimpleStringProperty(roomNumber);
+    }
+
+    public LocalDate getCurrentDate() {
+        return currentDate;
+    }
+
+    public void setCurrentDate(LocalDate currentDate) {
+        this.currentDate = currentDate;
     }
 
     public long getPid() {

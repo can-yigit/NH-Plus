@@ -9,6 +9,7 @@ import de.hitec.nhplus.model.User;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -92,7 +93,9 @@ public class SetUpDB {
                 "   surname TEXT NOT NULL, " +
                 "   dateOfBirth TEXT NOT NULL, " +
                 "   carelevel TEXT NOT NULL, " +
-                "   roomnumber TEXT NOT NULL" +
+                "   roomnumber TEXT NOT NULL, " +
+                "   status BOOLEAN NOT NULL DEFAULT 1, " +
+                "   currentDate TEXT NOT NULL" +
                 ");";
         executeStatement(connection, SQL, "patient");
     }
@@ -169,13 +172,13 @@ public class SetUpDB {
     private static void setUpPatients() {
         try {
             PatientDao dao = DaoFactory.getDaoFactory().createPatientDAO();
-            dao.create(new Patient("Seppl", "Herberger", convertStringToLocalDate("1945-12-01"), "4", "202"));
-            dao.create(new Patient("Martina", "Gerdsen", convertStringToLocalDate("1954-08-12"), "5", "010"));
-            dao.create(new Patient("Gertrud", "Franzen", convertStringToLocalDate("1949-04-16"), "3", "002"));
-            dao.create(new Patient("Ahmet", "Yilmaz", convertStringToLocalDate("1941-02-22"), "3", "013"));
-            dao.create(new Patient("Hans", "Neumann", convertStringToLocalDate("1955-12-12"), "2", "001"));
-            dao.create(new Patient("Elisabeth", "Müller", convertStringToLocalDate("1958-03-07"), "5", "110"));
-            dao.create(new Patient("Schwerk", "Sören", convertStringToLocalDate("1958-03-07"), "10", "187"));
+            dao.create(new Patient("Seppl", "Herberger", convertStringToLocalDate("1945-12-01"), "4", "202", LocalDate.now()));
+            dao.create(new Patient("Martina", "Gerdsen", convertStringToLocalDate("1954-08-12"), "5", "010", LocalDate.now()));
+            dao.create(new Patient("Gertrud", "Franzen", convertStringToLocalDate("1949-04-16"), "3", "002", LocalDate.now()));
+            dao.create(new Patient("Ahmet", "Yilmaz", convertStringToLocalDate("1941-02-22"), "3", "013", LocalDate.now()));
+            dao.create(new Patient("Hans", "Neumann", convertStringToLocalDate("1955-12-12"), "2", "001", LocalDate.now()));
+            dao.create(new Patient("Elisabeth", "Müller", convertStringToLocalDate("1958-03-07"), "5", "110", LocalDate.now()));
+            dao.create(new Patient("Schwerk", "Sören", convertStringToLocalDate("1958-03-07"), "10", "187", LocalDate.now()));
             LOGGER.log(Level.INFO, "Test patients inserted successfully.");
         } catch (SQLException exception) {
             LOGGER.log(Level.SEVERE, "Error inserting test patients", exception);
