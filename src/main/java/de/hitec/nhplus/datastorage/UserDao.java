@@ -53,8 +53,6 @@ public class UserDao extends DaoImp<User> {
         return preparedStatement;
     }
 
-
-
     /**
      * Generates a <code>PreparedStatement</code> to query a user by a given user id (uid).
      *
@@ -73,6 +71,13 @@ public class UserDao extends DaoImp<User> {
         }
         return preparedStatement;
     }
+
+    /**
+     * Generates a <code>PreparedStatement</code> to query a user by a given username.
+     *
+     * @param username Username to query.
+     * @return User object if found, null otherwise.
+     */
     public User getUserByUsername(String username) throws SQLException {
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -108,7 +113,9 @@ public class UserDao extends DaoImp<User> {
                 result.getString("phoneNumber"),
                 result.getString("permissions"),
                 result.getString("hashedpassword"),
-                caregiverId, result.getLong("uid"));
+                caregiverId,
+                result.getLong("uid")
+        );
     }
 
     /**
@@ -132,8 +139,7 @@ public class UserDao extends DaoImp<User> {
      * Maps a <code>ResultSet</code> of all users to an <code>ArrayList</code> of <code>User</code> objects.
      *
      * @param result ResultSet with all rows. The Columns will be mapped to objects of class <code>User</code>.
-     * @return <code>ArrayList</code> with objects of class <code>User</code> of all rows in the
-     * <code>ResultSet</code>.
+     * @return <code>ArrayList</code> with objects of class <code>User</code> of all rows in the <code>ResultSet</code>.
      */
     @Override
     protected ArrayList<User> getListFromResultSet(ResultSet result) throws SQLException {
@@ -144,7 +150,8 @@ public class UserDao extends DaoImp<User> {
                     result.getString("surname"),
                     result.getString("phoneNumber"),
                     result.getString("permissions"),
-                    result.getString("hashedPassword"));
+                    result.getString("hashedPassword")
+            );
             list.add(user);
         }
         return list;
@@ -198,7 +205,6 @@ public class UserDao extends DaoImp<User> {
         return preparedStatement;
     }
 
-
     /**
      * Generates a <code>PreparedStatement</code> to delete a user with the given id.
      *
@@ -218,6 +224,12 @@ public class UserDao extends DaoImp<User> {
         return preparedStatement;
     }
 
+    /**
+     * Unused method required by the superclass.
+     *
+     * @param key The key parameter (not used).
+     * @return Null, as this method is not implemented.
+     */
     @Override
     protected PreparedStatement getStatus(long key) {
         return null;
