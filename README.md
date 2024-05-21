@@ -92,7 +92,7 @@ Um die Gesundheitsverwaltungssoftware zu verwenden, folgen Sie bitte diesen Schr
 
 ---
 
-## 🫨 Gruppen Aufteilun
+## 🫨 Gruppen Aufteilung
 > Einzel Bewertung!
 
 
