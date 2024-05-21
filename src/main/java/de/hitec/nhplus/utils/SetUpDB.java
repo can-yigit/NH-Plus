@@ -158,8 +158,7 @@ public class SetUpDB {
     private static void setUpUsers() {
         try {
             UserDao dao = DaoFactory.getDaoFactory().createUserDAO();
-            dao.create(new User("Schwerk", "Berg", "0000187", "Administrator", PassHash.hashPassword("1234")));
-            dao.create(new User("NHPlus", "Auf die #1", "187 / 361", "Caregiver", PassHash.hashPassword("1234"), 1));
+            dao.create(new User("NHPlus", "Yeet", "187 / 361", "Caregiver", PassHash.hashPassword("Password12345!")));
             LOGGER.log(Level.INFO, "Test users inserted successfully.");
         } catch (SQLException exception) {
             LOGGER.log(Level.SEVERE, "Error inserting test users", exception);
@@ -172,13 +171,11 @@ public class SetUpDB {
     private static void setUpPatients() {
         try {
             PatientDao dao = DaoFactory.getDaoFactory().createPatientDAO();
-            dao.create(new Patient("Seppl", "Herberger", convertStringToLocalDate("1945-12-01"), "4", "202", LocalDate.now()));
-            dao.create(new Patient("Martina", "Gerdsen", convertStringToLocalDate("1954-08-12"), "5", "010", LocalDate.now()));
-            dao.create(new Patient("Gertrud", "Franzen", convertStringToLocalDate("1949-04-16"), "3", "002", LocalDate.now()));
-            dao.create(new Patient("Ahmet", "Yilmaz", convertStringToLocalDate("1941-02-22"), "3", "013", LocalDate.now()));
-            dao.create(new Patient("Hans", "Neumann", convertStringToLocalDate("1955-12-12"), "2", "001", LocalDate.now()));
-            dao.create(new Patient("Elisabeth", "Müller", convertStringToLocalDate("1958-03-07"), "5", "110", LocalDate.now()));
-            dao.create(new Patient("Schwerk", "Sören", convertStringToLocalDate("1958-03-07"), "10", "187", LocalDate.now()));
+            dao.create(new Patient("Schwerk", "Bester", convertStringToLocalDate("2000-01-01"), "1", "187", LocalDate.now()));
+            dao.create(new Patient("Elisabeth", "Müller", convertStringToLocalDate("1958-03-07"), "5", "188", LocalDate.now()));
+            dao.create(new Patient("Kollege", "Schnürschuh", convertStringToLocalDate("1958-03-07"), "5", "189", LocalDate.now()));
+            dao.create(new Patient("Markus", "Rühli", convertStringToLocalDate("1958-03-07"), "5", "190", LocalDate.now()));
+            dao.create(new Patient("Bernd", "Bread", convertStringToLocalDate("1958-03-07"), "5", "191", LocalDate.now()));
             LOGGER.log(Level.INFO, "Test patients inserted successfully.");
         } catch (SQLException exception) {
             LOGGER.log(Level.SEVERE, "Error inserting test patients", exception);
@@ -191,7 +188,7 @@ public class SetUpDB {
     private static void setUpCaregivers() {
         try {
             CaregiverDao dao = DaoFactory.getDaoFactory().createCaregiverDAO();
-            dao.create(new Caregiver("Björn", "Gütter", "019421201"));
+            dao.create(new Caregiver("NHPlus", "Yeet", "187 / 361"));
             LOGGER.log(Level.INFO, "Test caregivers inserted successfully.");
         } catch (SQLException exception) {
             LOGGER.log(Level.SEVERE, "Error inserting test caregivers", exception);
@@ -204,7 +201,7 @@ public class SetUpDB {
     private static void setUpTreatments() {
         try {
             TreatmentDao dao = DaoFactory.getDaoFactory().createTreatmentDao();
-            dao.create(new Treatment(1, 3, 1, convertStringToLocalDate("2023-06-03"), convertStringToLocalTime("11:00"), convertStringToLocalTime("15:00"), "Gespräch", "Der Patient hat enorme Angstgefühle und glaubt, er sei überfallen worden. Ihm seien alle Wertsachen gestohlen worden.\nPatient beruhigt sich erst, als alle Wertsachen im Zimmer gefunden worden sind."));
+            dao.create(new Treatment(1, 3, 1, convertStringToLocalDate("2023-06-03"), convertStringToLocalTime("11:00"), convertStringToLocalTime("15:00"), "Waschen", "Der Patient hat probleme sich selber zu waschen und braucht dementsprechende Unterstützung."));
             dao.create(new Treatment(1, 2, 1, convertStringToLocalDate("2023-07-03"), convertStringToLocalTime("11:00"), convertStringToLocalTime("15:00"), "Gespräch", "Der Patient hat enorme Angstgefühle und glaubt, er sei überfallen worden. Ihm seien alle Wertsachen gestohlen worden.\nPatient beruhigt sich erst, als alle Wertsachen im Zimmer gefunden worden sind."));
             LOGGER.log(Level.INFO, "Test treatments inserted successfully.");
         } catch (SQLException exception) {

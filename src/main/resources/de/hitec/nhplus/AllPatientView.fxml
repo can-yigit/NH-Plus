@@ -10,8 +10,8 @@
       <TableView fx:id="tableView" editable="true" layoutX="31.0" layoutY="120.0" prefHeight="287.0" prefWidth="825.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="80.0">
         <columns>
             <TableColumn fx:id="columnId" maxWidth="1200.0" minWidth="20.0" prefWidth="25.0" text="ID" />
-          <TableColumn fx:id="columnSurname" maxWidth="7500.0" minWidth="20.0" onEditCommit="#handleOnEditSurname" prefWidth="100.0" text="Nachname" />
           <TableColumn fx:id="columnFirstName" maxWidth="7500.0" onEditCommit="#handleOnEditFirstname" prefWidth="75.0" text="Vorname" />
+          <TableColumn fx:id="columnSurname" maxWidth="7500.0" minWidth="20.0" onEditCommit="#handleOnEditSurname" prefWidth="100.0" text="Nachname" />
             <TableColumn fx:id="columnDateOfBirth" maxWidth="7500.0" onEditCommit="#handleOnEditDateOfBirth" prefWidth="75.0" text="Geburtstag" />
             <TableColumn fx:id="columnCareLevel" onEditCommit="#handleOnEditCareLevel" prefWidth="75.0" text="Pflegegrad" />
             <TableColumn fx:id="columnRoomNumber" onEditCommit="#handleOnEditRoomNumber" prefWidth="75.0" text="Raum" />
@@ -57,8 +57,8 @@
                  </rowConstraints>
                  <children>
                      <Button fx:id="buttonBlock" mnemonicParsing="false" onAction="#handleBlock" prefWidth="90.0" text="Sperren" GridPane.columnSpan="2" />
-                     <Button fx:id="buttonAdd" mnemonicParsing="false" onAction="#handleAdd" prefWidth="90.0" text="Hinzufügen" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-                     <Button fx:id="buttonDelete" mnemonicParsing="false" onAction="#handleDelete" prefWidth="90.0" text="Löschen" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                     <Button fx:id="buttonAdd" mnemonicParsing="false" onAction="#handleAdd" prefWidth="90.0" text="Hinzufügen" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                     <Button fx:id="buttonDelete" mnemonicParsing="false" onAction="#handleDelete" prefWidth="90.0" text="Löschen" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                  </children>
              </GridPane>
          </children>

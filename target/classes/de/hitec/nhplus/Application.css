@@ -3,7 +3,7 @@ body {
 }
 
 .vBox{
-    -fx-background-color: #4b4b4b;
+    -fx-background-color: #2c2c2c;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 }
 .select-button {
