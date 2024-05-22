@@ -6,6 +6,9 @@ module de.hitec.nhplus {
     requires java.sql;
     requires org.xerial.sqlitejdbc;
 
+    requires layout;
+    requires kernel;
+
     opens de.hitec.nhplus to javafx.fxml;
     opens de.hitec.nhplus.controller to javafx.fxml;
     opens de.hitec.nhplus.model to javafx.base;

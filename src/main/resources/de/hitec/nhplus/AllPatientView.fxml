@@ -57,6 +57,7 @@
                  </rowConstraints>
                  <children>
                      <Button styleClass="darkButton" fx:id="buttonBlock" mnemonicParsing="false" onAction="#handleBlock" prefWidth="90.0" text="Sperren" GridPane.columnSpan="2" />
+                     <Button styleClass="darkButton" fx:id="buttonExport" mnemonicParsing="false" onAction="#exportToPDF" prefWidth="90.0" text="Exportieren" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                      <Button styleClass="darkButton" fx:id="buttonAdd" mnemonicParsing="false" onAction="#handleAdd" prefWidth="90.0" text="Hinzufügen" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
                      <Button styleClass="darkButton" fx:id="buttonDelete" mnemonicParsing="false" onAction="#handleDelete" prefWidth="90.0" text="Löschen" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
                  </children>
