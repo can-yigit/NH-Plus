@@ -24,7 +24,7 @@ public class DatabaseChecker {
         try {
             LocalDate currentDate = LocalDate.now();
 
-            final String SQL = "SELECT pid, currentDate FROM patient";
+            final String SQL = "SELECT pid, currentDate FROM patient WHERE status = 0";
             PreparedStatement statement = this.connection.prepareStatement(SQL);
 
             ResultSet resultSet = statement.executeQuery();
