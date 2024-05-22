@@ -176,6 +176,11 @@ public class PatientDao extends DaoImp<Patient> {
     }
 
     @Override
+    protected PreparedStatement getStatus(long key) {
+        return null;
+    }
+
+    @Override
     protected PreparedStatement getPIDStatment(long pid) {
         PreparedStatement preparedStatement = null;
         try {
@@ -186,5 +191,10 @@ public class PatientDao extends DaoImp<Patient> {
             exception.printStackTrace();
         }
         return preparedStatement;
+    }
+
+    @Override
+    public void pID(long key) throws SQLException {
+
     }
 }

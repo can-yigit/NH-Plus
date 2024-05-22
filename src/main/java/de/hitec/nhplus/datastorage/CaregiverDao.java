@@ -159,7 +159,17 @@ public class CaregiverDao extends DaoImp<Caregiver> {
     }
 
     @Override
+    protected PreparedStatement getStatus(long key) {
+        return null;
+    }
+
+    @Override
     protected PreparedStatement getPIDStatment(long key) {
         return null;
+    }
+
+    @Override
+    public void pID(long key) throws SQLException {
+
     }
 }

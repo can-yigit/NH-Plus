@@ -41,12 +41,6 @@ public abstract class DaoImp<T> implements Dao<T> {
         getDeleteStatement(key).executeUpdate();
     }
 
-    @Override
-    public void pID(long key) throws SQLException {
-        getPIDStatment(key).executeUpdate();
-    }
-
-
     protected abstract T getInstanceFromResultSet(ResultSet set) throws SQLException;
 
     protected abstract ArrayList<T> getListFromResultSet(ResultSet set) throws SQLException;
@@ -60,5 +54,8 @@ public abstract class DaoImp<T> implements Dao<T> {
     protected abstract PreparedStatement getUpdateStatement(T t);
 
     protected abstract PreparedStatement getDeleteStatement(long key);
+
+    protected abstract PreparedStatement getStatus(long key);
+
     protected abstract PreparedStatement getPIDStatment(long key);
 }
