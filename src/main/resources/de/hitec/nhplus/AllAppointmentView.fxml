@@ -13,6 +13,7 @@
           <TableColumn fx:id="columnEnd" maxWidth="7500.0" prefWidth="75.0" text="Bis" />
             <TableColumn fx:id="columnPatient" maxWidth="7500.0" prefWidth="75.0" text="Patient" />
             <TableColumn fx:id="columnRoom" maxWidth="7500.0" prefWidth="75.0" text="Raum" />
+            <TableColumn fx:id="columnDescription" maxWidth="7500.0" prefWidth="75.0" text="Kurzbeschreibung" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -20,7 +21,12 @@
       </TableView>
       <HBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefWidth="200.0" spacing="25.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" minWidth="400.0" text="Termin Kalender" textAlignment="CENTER">
+            <Label alignment="CENTER" contentDisplay="CENTER" minWidth="400.0" text="Termin Kalender:" textAlignment="CENTER">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
+            <Label fx:id="headerDate" alignment="CENTER" contentDisplay="CENTER" layoutX="233.0" layoutY="10.0" minWidth="400.0" text="Datum" textAlignment="CENTER">
                <font>
                   <Font size="36.0" />
                </font>

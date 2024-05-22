@@ -1,50 +1,110 @@
-## Informationen zur Lernsituation
-Du bist Mitarbeiter der HiTec GmbH, die seit über 15 Jahren IT-Dienstleister und seit einigen Jahren ISO/IEC 27001 zertifiziert ist. Die HiTec GmbH ist ein mittelgroßes IT-Systemhaus und ist auf dem IT-Markt mit folgenden Dienstleistungen und Produkten vetreten:
+# 🏥 NHPlus - Schulprojekt
 
-Entwicklung: Erstellung eigener Softwareprodukte
+## Übersicht:
+Die Gesundheitsverwaltungssoftware ist eine Anwendung, die Ärzten und Pflegekräften dabei hilft, Patienten und deren Behandlungen effizient zu verwalten. Die Software bietet verschiedene Funktionen, darunter die Anzeige und Bearbeitung von Patientendaten, die Zuweisung von Pflegern zu Behandlungen, die Sperrung von Patientendaten und automatische Datenbereinigung nach Datenschutzrichtlinien.
 
-Consulting: Anwenderberatung und Schulungen zu neuen IT- und Kommunikationstechnologien , Applikationen und IT-Sicherheit
+## Installation:
+Um die Gesundheitsverwaltungssoftware zu verwenden, folgen Sie bitte diesen Schritten:
+1. Laden Sie die Software von Github herunter.
+2. Entpacken Sie die heruntergeladene Datei in einen Ordner Ihrer Wahl.
+3. Öffnen Sie die Anwendung durch Doppelklick auf die ausführbare Datei.
 
-IT-Systembereich: Lieferung und Verkauf einzelner IT-Komponenten bis zur Planung und Installation komplexer Netzwerke und Dienste
+## Anleitung:
+1. Beim Start der Anwendung werden Sie zur Anmeldung aufgefordert. Geben Sie Ihren Benutzernamen und Ihr Passwort ein.
+2. Nach erfolgreicher Anmeldung können Sie auf die verschiedenen Funktionen der Software zugreifen, je nach Ihren Zugriffsrechten.
+3. Verwenden Sie die Benutzeroberfläche, um Patientendaten anzuzeigen, Behandlungen zu erstellen, Pfleger zuzuweisen und weitere Aktionen durchzuführen.
 
-Support und Wartung: Betreuung von einfachen und vernetzten IT-Systemen (Hard- und Software)
+> ###  🚧 Technische Daten
+> Benutzername: ``NHPlus``
+> Passwort: ``Password12345!``
 
-Für jede Dienstleistung gibt es Abteilungen mit spezialisierten Mitarbeitern. Jede Abteilung hat einen Abteilungs- bzw. Projektleiter, der wiederum eng mit den anderen Abteilungsleitern zusammenarbeitet.
+---
+
+## Testfälle:
+
+### ✅ 1. Erfolgreiche Anmeldung mit Benutzername und Passwort
+- **Vorbedingung:** Die Anmeldeseite der Anwendung ist geöffnet.
+- **Schritte:**
+> 1. Geben Sie Ihren Benutzernamen und Ihr Passwort in die entsprechenden Felder ein.
+> 2. Klicken Sie auf den Anmelde-Button.
+
+🎯 **Erwartetes Ergebnis:** Die Anmeldung ist erfolgreich, und die Standardseite wird angezeigt.
+
+---
+
+### ❌ 2. Fehlschlagende Anmeldung mit Benutzername und Passwort
+- **Vorbedingung:** Die Anmeldeseite der Anwendung ist geöffnet.
+- **Schritte:**
+> 1. Geben Sie Ihren Benutzernamen und ein falsches Passwort in die entsprechenden Felder ein.
+> 2. Klicken Sie auf den Anmelde-Button.
+
+🎯 **Erwartetes Ergebnis:** Die Anmeldung ist nicht erfolgreich, und das Anmeldefeld wird weiterhin angezeigt.
+
+---
+
+### 👩🏻‍⚕️ 3. Pfleger eintragen / bearbeiten oder löschen
+- **Vorbedingung:** Die Standardseite wird angezeigt.
+- **Schritte:**
+> 1. Klicke auf den Pfleger/innen-Button an der Seite. 
+> 2. Gib die Pflegerdaten in die drei Felder Vorname, Nachname und Telefonnummer ein und klicke anschließend auf "Hinzufügen". 
+> 3. Doppelklicke auf eines der Felder: Vorname, Nachname oder Telefon, um diese entsprechend anzupassen.
+> 4. Wähle einen Pfleger aus, indem du auf diesen klickst, und klicke auf "Löschen", um diesen zu entfernen.
+
+🎯 **Erwartetes Ergebnis:** Der Pfleger wird erfolgreich hinzugefügt, bearbeitet oder gelöscht, und die entsprechenden Änderungen werden auf der Seite angezeigt.
+
+---
+
+### ✏️ 4. Entfernen des Labels "Vermögensstand" aus den Patientendaten
+- **Vorbedingung:** Die Patientendaten sind in der Ansicht geöffnet.
+- **Schritte:**
+> 1. Überprüfen Sie, ob das Label "Vermögensstand" in den Patientendaten vorhanden ist.
+
+🎯 **Erwartetes Ergebnis:** Das Label "Vermögensstand" wurde aus den Patientendaten entfernt.
+
+---
+
+### 📝 5. Exportieren von Patientendaten als PDF
+# ``🚨 NICHT GEMACHT``
+- **Vorbedingung:** Die Patientendaten sind in der Anwendung geöffnet.
+- **Schritte:**
+> 1. Klicken Sie auf den Export-Button, um den Export der Patientendaten als PDF zu starten.
+
+🎯 **Erwartetes Ergebnis:** Die Patientendaten werden erfolgreich als PDF exportiert.
+
+---
+
+### 📝 6. Extra Aufgabe: Dark / White Modus
+# ``🚨 NICHT GEMACHT``
+- **Vorbedingung:** Die Standardseite wird angezeigt.
+- **Schritte:**
+> 1. Klicken Sie auf den Theme-Switch-Button, um das Design von schwarz auf weiß oder umgekehrt umzustellen.
+
+🎯 **Erwartetes Ergebnis:** Die Farbpalette der Benutzeroberfläche ändert sich in Schwarz oder Weiß.
+
+---
+
+### 📅 7. Extra Aufgabe: Termin Kalender
+- **Vorbedingung:** Die Standardseite wird angezeigt und du muss mit einem Pfleger Account angemeldet sein.
+- **Schritte:**
+> 1. Klicken Sie auf den Terminkalender-Button, um die Ansicht der Behandlungen für den heutigen Tag zu öffnen.
+
+🎯 **Erwartetes Ergebnis:** Termine werden dem Datum entsprechend angezeigt.
+
+---
+
+## 🫨 Gruppen Aufteilung
+> Einzel Bewertung!
 
 
-
-## Projektumfeld und Projektdefinition
-
-Du arbeitest als Softwareentwickler in der Entwicklungsabteilung. Aktuell bist du dem Team zugeordnet, das das Projekt "NHPlus" betreut. Dessen Auftraggeber - das Betreuungs- und Pflegeheim "Curanum Schwachhausen" - ist ein Pflegeheim im Bremer Stadteil Schwachhausen - bietet seinen in eigenen Zimmern untergebrachten Bewohnern umfangreiche Therapie- und Serviceleistungen an, damit diese so lange wie möglich selbstbestimmt und unabhängig im Pflegeheim wohnen können. Curanum Schwachhausen hat bei der HiTec GmbH eine Individualsoftware zur Verwaltung der Patienten und den an ihnen durchgeführten Behandlungen in Auftrag gegeben. Aktuell werden die Behandlungen direkt nach ihrer Durchführung durch die entsprechende Pflegekraft handschriftlich auf einem Vordruck erfasst und in einem Monatsordner abgelegt. Diese Vorgehensweise führt dazu, dass Auswertungen wie z.B. welche Behandlungen ein Patient erhalten oder welche Pflegkraft eine bestimmte Behandlung durchgeführt hat, einen hohen Arbeitsaufwand nach sich ziehen. Durch NHPlus soll die Verwaltung der Patienten und ihrer Behandlungen elektronisch abgebildet und auf diese Weise vereinfacht werden.
-
-Bei den bisher stattgefundenen Meetings mit dem Kunden konnten folgende Anforderungen an NHPlus identifiziert werden:
-
-- alle Patienten sollen mit ihrem vollen Namen, Geburtstag, Pflegegrad, dem Raum, in dem sie im Heim untergebracht sind, sowie ihrem Vermögensstand erfasst werden.
-
-- Die Pflegekräfte werden mit ihrem vollen Namen und ihrer Telefonnumer erfasst, um sie auf Station schnell erreichen zu können.
-
-- jede Pflegekraft erfasst eine Behandlung elektronisch, indem sie den Patienten, das Datum, den Beginn, das Ende, die Behandlungsart sowie einen längeren Text zur Behandlung erfasst.
-
-- Die Software muss den Anforderungen des Datenschutzes entsprechen.
-
-- Die Software ist zunächst als Desktopanwendung zu entwickeln, da die Pflegekräfte ihre Behandlungen an einem stationären Rechner in ihrem Aufenthaltsraum erfassen sollen.
-
-
-
-Da in der Entwicklungsabteilung der HiTech GmbH agile Vorgehensweisen vorgeschrieben sind, wurde für NHPlus Scum als Vorgehensweise gewählt.
-
-
-
-## Stand des Projektes
-
-In den bisherigen Sprints wurden die Module zur Erfassung der Patienten- und Behandlungsdaten fertiggestellt. Es fehlt das Modul zur Erfassung der Pflegekräfte. Deswegen kann bisher ebenfalls nicht erfasst werden, welche Pflegekraft eine bestimmte Behandlung durchgeführt hat. In der letzten Sprint Review sind von der Curanum Schwachhausen Zweifel angebracht worden, dass die bisher entwickelte Software den Anforderungen des Datenschutzes genügt.
-
-## Technische Hinweise
-
-Wird das Open JDK verwendet, werden JavaFX-Abhängigkeiten nicht importiert. Die Lösung besteht in der Installation der neuesten JDK-Version der Firma Oracle.
-
-## Technische Hinweise zur Datenbank
-
-- Benutzername: SA
-- Passwort: SA
-- Bitte nicht in die Datenbank schauen, während die Applikation läuft. Das sorgt leider für einen Lock, der erst wieder verschwindet, wenn IntelliJ neugestartet wird!
+|           Aufgaben            |     Can      |  Shawkat   |
+|:-----------------------------:|:------------:|:----------:|
+|         Pfleger Modul         |      ✅       |            |
+|   Authentifizierung System    |      ✅       |            |
+| Entfernung des Vermögensstand |      ✅       |            |
+|        Löschanpassung         |              |     ✅      |
+|          PDF-Export           |              |     ❌      |
+|       Dark White Modus        |              |     ❌      |
+|        Termin Kalender        |      ✅       |            |
+|    Merge Konflikt Behebung    |      ✅       |            |
+|    Minor Updates / Fixing     |      ✅       |            |
+|      Zeilen geschrieben       | +2224 / -511 | +250~/ -30 |
