@@ -5,16 +5,16 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="500.0" prefWidth="855.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.hitec.nhplus.controller.AllPatientController">
+<AnchorPane styleClass="darktableView" stylesheets="@Application.css" prefHeight="500.0" prefWidth="855.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.hitec.nhplus.controller.AllPatientController">
    <children>
-      <TableView fx:id="tableView" editable="true" layoutX="31.0" layoutY="120.0" prefHeight="287.0" prefWidth="825.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="80.0">
+      <TableView styleClass="darktableView" fx:id="tableView" editable="true" layoutX="31.0" layoutY="120.0" prefHeight="287.0" prefWidth="825.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="80.0">
         <columns>
-            <TableColumn fx:id="columnId" maxWidth="1200.0" minWidth="20.0" prefWidth="25.0" text="ID" />
-          <TableColumn fx:id="columnSurname" maxWidth="7500.0" minWidth="20.0" onEditCommit="#handleOnEditSurname" prefWidth="100.0" text="Nachname" />
-          <TableColumn fx:id="columnFirstName" maxWidth="7500.0" onEditCommit="#handleOnEditFirstname" prefWidth="75.0" text="Vorname" />
-            <TableColumn fx:id="columnDateOfBirth" maxWidth="7500.0" onEditCommit="#handleOnEditDateOfBirth" prefWidth="75.0" text="Geburtstag" />
-            <TableColumn fx:id="columnCareLevel" onEditCommit="#handleOnEditCareLevel" prefWidth="75.0" text="Pflegegrad" />
-            <TableColumn fx:id="columnRoomNumber" onEditCommit="#handleOnEditRoomNumber" prefWidth="75.0" text="Raum" />
+            <TableColumn styleClass="darkColumn" fx:id="columnId" maxWidth="1200.0" minWidth="20.0" prefWidth="25.0" text="ID" />
+          <TableColumn styleClass="darkColumn" fx:id="columnSurname" maxWidth="7500.0" minWidth="20.0" onEditCommit="#handleOnEditSurname" prefWidth="100.0" text="Nachname" />
+          <TableColumn styleClass="darkColumn" fx:id="columnFirstName" maxWidth="7500.0" onEditCommit="#handleOnEditFirstname" prefWidth="75.0" text="Vorname" />
+            <TableColumn styleClass="darkColumn" fx:id="columnDateOfBirth" maxWidth="7500.0" onEditCommit="#handleOnEditDateOfBirth" prefWidth="75.0" text="Geburtstag" />
+            <TableColumn styleClass="darkColumn" fx:id="columnCareLevel" onEditCommit="#handleOnEditCareLevel" prefWidth="75.0" text="Pflegegrad" />
+            <TableColumn styleClass="darkColumn" fx:id="columnRoomNumber" onEditCommit="#handleOnEditRoomNumber" prefWidth="75.0" text="Raum" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -33,11 +33,11 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <TextField fx:id="textFieldSurname" minWidth="200.0" prefHeight="26.0" prefWidth="200.0" promptText="Nachname" GridPane.columnIndex="1" />
-                  <TextField fx:id="textFieldFirstName" minWidth="200.0" prefHeight="26.0" prefWidth="200.0" promptText="Vorname" />
-                  <TextField fx:id="textFieldDateOfBirth" minWidth="160.0" prefWidth="160.0" promptText="Geburtstag" GridPane.columnIndex="2" />
-                  <TextField fx:id="textFieldCareLevel" prefHeight="26.0" prefWidth="200.0" promptText="Pflegegrad" GridPane.rowIndex="1" />
-                  <TextField fx:id="textFieldRoomNumber" prefHeight="26.0" prefWidth="200.0" promptText="Raum" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField styleClass="darkTextField" fx:id="textFieldSurname" minWidth="200.0" prefHeight="26.0" prefWidth="200.0" promptText="Nachname" GridPane.columnIndex="1" />
+                  <TextField styleClass="darkTextField" fx:id="textFieldFirstName" minWidth="200.0" prefHeight="26.0" prefWidth="200.0" promptText="Vorname" />
+                  <TextField styleClass="darkTextField" fx:id="textFieldDateOfBirth" minWidth="160.0" prefWidth="160.0" promptText="Geburtstag" GridPane.columnIndex="2" />
+                  <TextField styleClass="darkTextField" fx:id="textFieldCareLevel" prefHeight="26.0" prefWidth="200.0" promptText="Pflegegrad" GridPane.rowIndex="1" />
+                  <TextField styleClass="darkTextField" fx:id="textFieldRoomNumber" prefHeight="26.0" prefWidth="200.0" promptText="Raum" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
                <padding>
                   <Insets right="10.0" />
@@ -56,9 +56,9 @@
                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                  </rowConstraints>
                  <children>
-                     <Button fx:id="buttonBlock" mnemonicParsing="false" onAction="#handleBlock" prefWidth="90.0" text="Sperren" GridPane.columnSpan="2" />
-                     <Button fx:id="buttonAdd" mnemonicParsing="false" onAction="#handleAdd" prefWidth="90.0" text="Hinzufügen" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-                     <Button fx:id="buttonDelete" mnemonicParsing="false" onAction="#handleDelete" prefWidth="90.0" text="Löschen" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                     <Button styleClass="darkButton" fx:id="buttonBlock" mnemonicParsing="false" onAction="#handleBlock" prefWidth="90.0" text="Sperren" GridPane.columnSpan="2" />
+                     <Button styleClass="darkButton" fx:id="buttonAdd" mnemonicParsing="false" onAction="#handleAdd" prefWidth="90.0" text="Hinzufügen" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                     <Button styleClass="darkButton" fx:id="buttonDelete" mnemonicParsing="false" onAction="#handleDelete" prefWidth="90.0" text="Löschen" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
                  </children>
              </GridPane>
          </children>
