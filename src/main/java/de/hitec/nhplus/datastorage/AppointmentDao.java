@@ -56,7 +56,7 @@ public class AppointmentDao extends DaoImp<Appointment> {
     protected Appointment getInstanceFromResultSet(ResultSet result) throws SQLException {
         LocalTime begin = DateConverter.convertStringToLocalTime(result.getString(1));
         LocalTime end = DateConverter.convertStringToLocalTime(result.getString(2));
-        return new Appointment(begin, end, result.getString(3), result.getString(4));
+        return new Appointment(begin, end, result.getString(3), result.getString(4), result.getString(5));
     }
 
     /**
@@ -90,7 +90,7 @@ public class AppointmentDao extends DaoImp<Appointment> {
         while (result.next()) {
             LocalTime begin = DateConverter.convertStringToLocalTime(result.getString(1));
             LocalTime end = DateConverter.convertStringToLocalTime(result.getString(2));
-            Appointment Appointment = new Appointment(begin, end, result.getString(3), result.getString(4));
+            Appointment Appointment = new Appointment(begin, end, result.getString(3), result.getString(4), result.getString(5));
             list.add(Appointment);
         }
         return list;
@@ -110,9 +110,12 @@ public class AppointmentDao extends DaoImp<Appointment> {
     private PreparedStatement getReadAllTreatmentsOfOnePatientByPid(long cid) {
         PreparedStatement preparedStatement = null;
         try {
-            final String SQL = "SELECT treatment.begin, treatment.end, patient.roomnumber, CONCAT(patient.firstname, ' ', patient.surname) AS patient  FROM treatment INNER JOIN patient ON treatment.pid = patient.pid WHERE treatment.cid = ?";
+            String formattedDate = DateConverter.convertLocalDateToString(LocalDate.now());
+
+            final String SQL = "SELECT treatment.begin, treatment.end, patient.roomnumber, CONCAT(patient.firstname, ' ', patient.surname) AS patient, treatment.description  FROM treatment INNER JOIN patient ON treatment.pid = patient.pid WHERE treatment.cid = ? AND treatment.treatment_date = ?";
             preparedStatement = this.connection.prepareStatement(SQL);
             preparedStatement.setLong(1, cid);
+            preparedStatement.setString(2, formattedDate);
         } catch (SQLException exception) {
             exception.printStackTrace();
         }

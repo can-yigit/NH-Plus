@@ -1,23 +1,20 @@
 package de.hitec.nhplus.controller;
 
-import de.hitec.nhplus.datastorage.DaoFactory;
 import de.hitec.nhplus.datastorage.CaregiverDao;
+import de.hitec.nhplus.datastorage.DaoFactory;
 import de.hitec.nhplus.datastorage.UserDao;
 import de.hitec.nhplus.model.Caregiver;
 import de.hitec.nhplus.model.User;
+import de.hitec.nhplus.sessions.Session;
 import de.hitec.nhplus.utils.PassHash;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import de.hitec.nhplus.utils.DateConverter;
 
 import java.sql.SQLException;
 
@@ -26,35 +23,29 @@ import java.sql.SQLException;
  */
 public class AllCareGiverController {
 
+    // FXML UI components
     @FXML
     private TableView<Caregiver> tableView;
     @FXML
-    public TableColumn<Caregiver, Integer> colId;
-
+    private TableColumn<Caregiver, Integer> colId;
     @FXML
     private TableColumn<Caregiver, String> colFirstName;
-
     @FXML
     private TableColumn<Caregiver, String> colSurname;
-
     @FXML
     private TableColumn<Caregiver, String> colTelephone;
-
     @FXML
     private Button buttonDelete;
-
     @FXML
     private Button buttonAdd;
-
     @FXML
     private TextField textFieldFirstName;
-
     @FXML
     private TextField textFieldLastName;
-
     @FXML
     private TextField textFieldPhoneNumber;
 
+    // Observable list to hold caregivers for the TableView
     private final ObservableList<Caregiver> caregivers = FXCollections.observableArrayList();
     private CaregiverDao dao;
     private UserDao udao;
@@ -66,10 +57,10 @@ public class AllCareGiverController {
      * Initializes the controller.
      */
     public void initialize() {
-        this.readAllAndShowInTableView();
+        readAllAndShowInTableView();
 
+        // Set up the TableView columns with the corresponding properties of Caregiver
         this.colId.setCellValueFactory(new PropertyValueFactory<>("cid"));
-
         this.colFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         this.colFirstName.setCellFactory(TextFieldTableCell.forTableColumn());
         this.colSurname.setCellValueFactory(new PropertyValueFactory<>("lastName"));
@@ -77,19 +68,22 @@ public class AllCareGiverController {
         this.colTelephone.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
         this.colTelephone.setCellFactory(TextFieldTableCell.forTableColumn());
 
+        // Assign the observable list to the TableView
         this.tableView.setItems(this.caregivers);
 
+        // Disable the delete button if no caregiver is selected
         this.buttonDelete.setDisable(true);
         this.tableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Caregiver>() {
             @Override
             public void changed(ObservableValue<? extends Caregiver> observableValue, Caregiver oldCaregiver, Caregiver newCaregiver) {
-                AllCareGiverController.this.buttonDelete.setDisable(newCaregiver == null);
+                buttonDelete.setDisable(newCaregiver == null);
             }
         });
 
+        // Disable the add button if the input fields are not valid
         this.buttonAdd.setDisable(true);
         ChangeListener<String> inputNewCaregiverListener = (observableValue, oldText, newText) ->
-                AllCareGiverController.this.buttonAdd.setDisable(!AllCareGiverController.this.areInputDataValid());
+                buttonAdd.setDisable(!areInputDataValid());
         this.textFieldFirstName.textProperty().addListener(inputNewCaregiverListener);
         this.textFieldLastName.textProperty().addListener(inputNewCaregiverListener);
         this.textFieldPhoneNumber.textProperty().addListener(inputNewCaregiverListener);
@@ -98,34 +92,34 @@ public class AllCareGiverController {
     @FXML
     public void handleOnEditFirstName(TableColumn.CellEditEvent<Caregiver, String> event) {
         event.getRowValue().setFirstName(event.getNewValue());
-        this.doUpdate(event);
+        doUpdate(event.getRowValue());
     }
 
     @FXML
     public void handleOnEditLastName(TableColumn.CellEditEvent<Caregiver, String> event) {
         event.getRowValue().setSurname(event.getNewValue());
-        this.doUpdate(event);
+        doUpdate(event.getRowValue());
     }
 
     @FXML
     public void handleOnEditPhoneNumber(TableColumn.CellEditEvent<Caregiver, String> event) {
         event.getRowValue().setPhoneNumber(event.getNewValue());
-        this.doUpdate(event);
+        doUpdate(event.getRowValue());
     }
 
-    private void doUpdate(TableColumn.CellEditEvent<Caregiver, String> event) {
+    private void doUpdate(Caregiver caregiver) {
         try {
-            this.dao.update(event.getRowValue());
+            dao.update(caregiver);
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
     }
 
     private void readAllAndShowInTableView() {
-        this.caregivers.clear();
-        this.dao = DaoFactory.getDaoFactory().createCaregiverDAO();
+        caregivers.clear();
+        dao = DaoFactory.getDaoFactory().createCaregiverDAO();
         try {
-            this.caregivers.addAll(this.dao.readAll());
+            caregivers.addAll(dao.readAll());
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
@@ -133,41 +127,52 @@ public class AllCareGiverController {
 
     @FXML
     public void handleDelete() {
-        Caregiver selectedItem = this.tableView.getSelectionModel().getSelectedItem();
+        Caregiver selectedItem = tableView.getSelectionModel().getSelectedItem();
         if (selectedItem != null) {
-            try {
-                this.dao.deleteById(selectedItem.getCaregiverId());
-                this.tableView.getItems().remove(selectedItem);
-            } catch (SQLException exception) {
-                exception.printStackTrace();
+            if(selectedItem.getCaregiverId() == Session.getInstance().getUserSession().getCaregiverId()) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText("Account kann nicht gelöscht werden.");
+                    alert.setContentText("Du kannst deinen Account nicht löschen, wenn du in diesen einloggt bist.");
+                    alert.showAndWait();
+            } else {
+                try {
+                    dao.deleteById(selectedItem.getCaregiverId());
+                    tableView.getItems().remove(selectedItem);
+                } catch (SQLException exception) {
+                    exception.printStackTrace();
+                }
             }
+
         }
     }
 
     @FXML
     public void handleAdd() {
-        String firstName = this.textFieldFirstName.getText();
-        String lastName = this.textFieldLastName.getText();
-        String phoneNumber = this.textFieldPhoneNumber.getText();
-        this.udao = DaoFactory.getDaoFactory().createUserDAO();
+        String firstName = textFieldFirstName.getText();
+        String lastName = textFieldLastName.getText();
+        String phoneNumber = textFieldPhoneNumber.getText();
+        udao = DaoFactory.getDaoFactory().createUserDAO();
         try {
-            this.dao.create(new Caregiver(firstName, lastName, phoneNumber));
-            this.udao.create(new User(firstName, lastName, phoneNumber, "Caregiver", PassHash.hashPassword("DefaultPW1234!")));
+            Caregiver newCaregiver = new Caregiver(firstName, lastName, phoneNumber);
+            dao.create(newCaregiver);
+            udao.create(new User(firstName, lastName, phoneNumber, "Caregiver", PassHash.hashPassword("DefaultPW1234!")));
+            caregivers.add(newCaregiver);
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
-        readAllAndShowInTableView();
         clearTextfields();
+        readAllAndShowInTableView();
     }
 
     private void clearTextfields() {
-        this.textFieldFirstName.clear();
-        this.textFieldLastName.clear();
-        this.textFieldPhoneNumber.clear();
+        textFieldFirstName.clear();
+        textFieldLastName.clear();
+        textFieldPhoneNumber.clear();
     }
 
     private boolean areInputDataValid() {
-        return !this.textFieldFirstName.getText().isBlank() && !this.textFieldLastName.getText().isBlank() &&
-                !this.textFieldPhoneNumber.getText().isBlank();
+        return !textFieldFirstName.getText().isBlank() && !textFieldLastName.getText().isBlank() &&
+                !textFieldPhoneNumber.getText().isBlank();
     }
 }

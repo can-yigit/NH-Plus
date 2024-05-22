@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
@@ -11,12 +12,17 @@
          <children>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <Label layoutX="10.0" layoutY="75.0" text="Willkommen Zurück!" textFill="WHITE">
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="39.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Images/care.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="10.0" layoutY="128.0" text="Willkommen Zurück!" textFill="WHITE">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <Label fx:id="username" layoutX="10.0" layoutY="104.0" prefHeight="29.0" prefWidth="199.0" text="Name" textFill="WHITE">
+                  <Label fx:id="username" layoutX="10.0" layoutY="157.0" prefHeight="29.0" prefWidth="199.0" text="Name" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
