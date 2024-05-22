@@ -158,7 +158,8 @@ public class SetUpDB {
     private static void setUpUsers() {
         try {
             UserDao dao = DaoFactory.getDaoFactory().createUserDAO();
-            dao.create(new User("NHPlus", "Yeet", "187 / 361", "Caregiver", PassHash.hashPassword("Password12345!")));
+            dao.create(new User("NHPlus", "Yeet", "187 / 361", "Caregiver", PassHash.hashPassword("Caregiver12345!")));
+            dao.create(new User("Admin", "Test", "001", "Administrator", PassHash.hashPassword("Admin12345!")));
             LOGGER.log(Level.INFO, "Test users inserted successfully.");
         } catch (SQLException exception) {
             LOGGER.log(Level.SEVERE, "Error inserting test users", exception);

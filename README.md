@@ -92,7 +92,7 @@ Um die Gesundheitsverwaltungssoftware zu verwenden, folgen Sie bitte diesen Schr
 
 ---
 
-## 🫨 Gruppen Aufteilun
+## 🫨 Gruppen Aufteilung
 > Einzel Bewertung!
 
 
@@ -103,8 +103,8 @@ Um die Gesundheitsverwaltungssoftware zu verwenden, folgen Sie bitte diesen Schr
 | Entfernung des Vermögensstand |      ✅       |            |
 |        Löschanpassung         |              |     ✅      |
 |          PDF-Export           |              |     ❌      |
-|       Dark White Modus        |              |     ❌      |
+|       Dark White Modus        |              |     ✅      |
 |        Termin Kalender        |      ✅       |            |
 |    Merge Konflikt Behebung    |      ✅       |            |
 |    Minor Updates / Fixing     |      ✅       |            |
-|      Zeilen geschrieben       | +2224 / -511 | +250~/ -30 |
+|      Zeilen geschrieben       | +2224 / -511 | +450~/ -30 |

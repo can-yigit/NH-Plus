@@ -129,11 +129,11 @@ public class AllCareGiverController {
     public void handleDelete() {
         Caregiver selectedItem = tableView.getSelectionModel().getSelectedItem();
         if (selectedItem != null) {
-            if(selectedItem.getCaregiverId() == Session.getInstance().getUserSession().getCaregiverId()) {
+            if(selectedItem.getCaregiverId() == Session.getInstance().getUserSession().getCaregiverId() || !Session.getInstance().getUserSession().getPermissions().equals("Administrator")) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error");
                     alert.setHeaderText("Account kann nicht gelöscht werden.");
-                    alert.setContentText("Du kannst deinen Account nicht löschen, wenn du in diesen einloggt bist.");
+                    alert.setContentText("Du kannst deinen Account nicht löschen oder einen anderen ohne Administrator Berechtigung, wenn du in diesen einloggt bist.");
                     alert.showAndWait();
             } else {
                 try {
