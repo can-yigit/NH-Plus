@@ -14,9 +14,13 @@ Um die Gesundheitsverwaltungssoftware zu verwenden, folgen Sie bitte diesen Schr
 2. Nach erfolgreicher Anmeldung können Sie auf die verschiedenen Funktionen der Software zugreifen, je nach Ihren Zugriffsrechten.
 3. Verwenden Sie die Benutzeroberfläche, um Patientendaten anzuzeigen, Behandlungen zu erstellen, Pfleger zuzuweisen und weitere Aktionen durchzuführen.
 
-> ###  🚧 Technische Daten
+> ###  🚧 Technische Daten Pfleger
 > Benutzername: ``NHPlus``
-> Passwort: ``Password12345!``
+> Passwort: ``Caregiver12345!``
+
+> ###  🚧 Technische Daten Administrator
+> Benutzername: ``Admin``
+> Passwort: ``Admin12345!``
 
 ---
 
@@ -43,7 +47,7 @@ Um die Gesundheitsverwaltungssoftware zu verwenden, folgen Sie bitte diesen Schr
 ---
 
 ### 👩🏻‍⚕️ 3. Pfleger eintragen / bearbeiten oder löschen
-- **Vorbedingung:** Die Standardseite wird angezeigt.
+- **Vorbedingung:** Die Standardseite wird angezeigt und als Administrator eingeloggt.
 - **Schritte:**
 > 1. Klicke auf den Pfleger/innen-Button an der Seite. 
 > 2. Gib die Pflegerdaten in die drei Felder Vorname, Nachname und Telefonnummer ein und klicke anschließend auf "Hinzufügen". 
@@ -103,8 +107,8 @@ Um die Gesundheitsverwaltungssoftware zu verwenden, folgen Sie bitte diesen Schr
 | Entfernung des Vermögensstand |      ✅       |            |
 |        Löschanpassung         |              |     ✅      |
 |          PDF-Export           |              |     ❌      |
-|       Dark White Modus        |              |     ❌      |
+|       Dark White Modus        |              |     ✅      |
 |        Termin Kalender        |      ✅       |            |
 |    Merge Konflikt Behebung    |      ✅       |            |
 |    Minor Updates / Fixing     |      ✅       |            |
-|      Zeilen geschrieben       | +2224 / -511 | +250~/ -30 |
+|      Zeilen geschrieben       | +2224 / -511 | +450~/ -30 |
