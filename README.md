@@ -78,7 +78,6 @@ Um die Gesundheitsverwaltungssoftware zu verwenden, folgen Sie bitte diesen Schr
 ---
 
 ### 📝 6. Extra Aufgabe: Dark / White Modus
-# ``🚨 NICHT GEMACHT``
 - **Vorbedingung:** Die Standardseite wird angezeigt.
 - **Schritte:**
 > 1. Klicken Sie auf den Theme-Switch-Button, um das Design von schwarz auf weiß oder umgekehrt umzustellen.
