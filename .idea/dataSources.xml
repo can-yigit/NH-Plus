@@ -5,7 +5,7 @@
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/db/nursingHome.db</jdbc-url>
+      <jdbc-url>jdbc:sqlite:C:\Users\de63679\OneDrive - Cordes &amp; Graefe KG\Dokumente\Schule 2023\java\Gruppen-Projekt\NHPlus\NH-Plus\db\nursingHome.db</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
       <libraries>
         <library>

@@ -2,7 +2,6 @@ package de.hitec.nhplus.controller;
 
 import de.hitec.nhplus.datastorage.CaregiverDao;
 import de.hitec.nhplus.datastorage.DaoFactory;
-import de.hitec.nhplus.datastorage.PatientDao;
 import de.hitec.nhplus.datastorage.TreatmentDao;
 import de.hitec.nhplus.model.Caregiver;
 import javafx.beans.value.ChangeListener;
@@ -16,7 +15,6 @@ import de.hitec.nhplus.model.Treatment;
 import de.hitec.nhplus.utils.DateConverter;
 import javafx.util.StringConverter;
 
-import java.io.PipedReader;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -112,7 +110,7 @@ public class NewTreatmentController {
         LocalTime end = DateConverter.convertStringToLocalTime(textFieldEnd.getText());
         String description = textFieldDescription.getText();
         String remarks = textAreaRemarks.getText();
-        Treatment treatment = new Treatment(patient.getPid(), selectedCaregiver.getCaregiverId(), date, begin, end, description, remarks);
+        Treatment treatment = new Treatment(patient.getPID(), selectedCaregiver.getCaregiverId(), date, begin, end, description, remarks);
         createTreatment(treatment);
         controller.readAllAndShowInTableView();
         stage.close();

@@ -148,7 +148,7 @@ public class PatientDao extends DaoImp<Patient> {
             preparedStatement.setString(4, patient.getCareLevel());
             preparedStatement.setString(5, patient.getRoomNumber());
             preparedStatement.setString(6, patient.getAssets());
-            preparedStatement.setLong(7, patient.getPid());
+            preparedStatement.setLong(7, patient.getPID());
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
@@ -161,11 +161,25 @@ public class PatientDao extends DaoImp<Patient> {
      * @param pid Id of the patient to delete.
      * @return <code>PreparedStatement</code> to delete patient with the given id.
      */
+
     @Override
     protected PreparedStatement getDeleteStatement(long pid) {
         PreparedStatement preparedStatement = null;
         try {
             final String SQL = "DELETE FROM patient WHERE pid = ?";
+            preparedStatement = this.connection.prepareStatement(SQL);
+            preparedStatement.setLong(1, pid);
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+        return preparedStatement;
+    }
+
+    @Override
+    protected PreparedStatement getPIDStatment(long pid) {
+        PreparedStatement preparedStatement = null;
+        try {
+            final String SQL = "SELECT pid FROM patient WHERE pid = ?";
             preparedStatement = this.connection.prepareStatement(SQL);
             preparedStatement.setLong(1, pid);
         } catch (SQLException exception) {

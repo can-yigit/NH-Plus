@@ -59,7 +59,7 @@ public class Patient extends Person {
         this.assets = new SimpleStringProperty(assets);
     }
 
-    public long getPid() {
+    public long getPID() {
         return pid.get();
     }
 

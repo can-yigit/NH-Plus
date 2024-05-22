@@ -4,7 +4,6 @@ import de.hitec.nhplus.Main;
 import de.hitec.nhplus.datastorage.DaoFactory;
 import de.hitec.nhplus.datastorage.PatientDao;
 import de.hitec.nhplus.datastorage.TreatmentDao;
-import de.hitec.nhplus.model.Caregiver;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -120,7 +119,7 @@ public class AllTreatmentController {
         Patient patient = searchInList(selectedPatient);
         if (patient !=null) {
             try {
-                this.treatments.addAll(this.dao.readTreatmentsByPid(patient.getPid()));
+                this.treatments.addAll(this.dao.readTreatmentsByPid(patient.getPID()));
             } catch (SQLException exception) {
                 exception.printStackTrace();
             }

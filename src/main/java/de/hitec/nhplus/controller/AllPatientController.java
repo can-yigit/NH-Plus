@@ -1,24 +1,29 @@
 package de.hitec.nhplus.controller;
 
+import de.hitec.nhplus.datastorage.ConnectionBuilder;
 import de.hitec.nhplus.datastorage.DaoFactory;
 import de.hitec.nhplus.datastorage.PatientDao;
+import de.hitec.nhplus.utils.PatientDataExport;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import de.hitec.nhplus.model.Patient;
 import de.hitec.nhplus.utils.DateConverter;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
+import java.sql.Connection;
+import java.util.ArrayList;
 
 /**
  * The <code>AllPatientController</code> contains the entire logic of the patient view. It determines which data is displayed and how to react to events.
@@ -72,6 +77,7 @@ public class AllPatientController {
 
     @FXML
     private TextField textFieldAssets;
+    Connection connection = ConnectionBuilder.getConnection();
 
     private final ObservableList<Patient> patients = FXCollections.observableArrayList();
     private PatientDao dao;
@@ -83,7 +89,6 @@ public class AllPatientController {
      */
     public void initialize() {
         this.readAllAndShowInTableView();
-
         this.columnId.setCellValueFactory(new PropertyValueFactory<>("pid"));
 
         // CellValueFactory to show property values in TableView
@@ -221,17 +226,57 @@ public class AllPatientController {
         }
     }
 
-    /**
-     * This method handles events fired by the button to delete patients. It calls {@link PatientDao} to delete the
-     * patient from the database and removes the object from the list, which is the data source of the
-     * <code>TableView</code>.
-     */
+    @FXML
+    public void exportToPDF() throws SQLException, IOException {
+        Patient selectedItem = this.tableView.getSelectionModel().getSelectedItem();
+        if (selectedItem == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Keine Auswahl");
+            alert.setHeaderText(null);
+            alert.setContentText("Bitte wählen Sie einen Patienten aus.");
+            alert.showAndWait();
+            return;
+        }
+
+        long pid = selectedItem.getPID();
+        PatientDataExport patientDataExport = new PatientDataExport(connection);
+
+        ArrayList<String[]> patientData = patientDataExport.getPatientDataById(pid);
+        ArrayList<String[]> treatmentData = patientDataExport.getTreatmentDataById(pid);
+
+        if (!patientData.isEmpty() && !treatmentData.isEmpty()) {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Speicherort für PDF auswählen");
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Dateien", "*.pdf"));
+            fileChooser.setInitialFileName("Patientenbehandlung.pdf");
+
+            Stage stage = (Stage) this.tableView.getScene().getWindow();
+            File file = fileChooser.showSaveDialog(stage);
+
+            if (file != null) {
+                String filePath = file.getAbsolutePath();
+                patientDataExport.pdfExporter(patientData, treatmentData, filePath);
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText(null);
+                alert.setContentText("Patientenbehandlung wurde heruntergeladen:\n" + filePath);
+                alert.showAndWait();
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Keine Behandlung gefunden");
+            alert.setHeaderText(null);
+            alert.setContentText("Es gibt keine Behandlungsdaten für diesen Patienten.");
+            alert.showAndWait();
+        }
+    }
+
     @FXML
     public void handleDelete() {
         Patient selectedItem = this.tableView.getSelectionModel().getSelectedItem();
         if (selectedItem != null) {
             try {
-                DaoFactory.getDaoFactory().createPatientDAO().deleteById(selectedItem.getPid());
+                DaoFactory.getDaoFactory().createPatientDAO().deleteById(selectedItem.getPID());
                 this.tableView.getItems().remove(selectedItem);
             } catch (SQLException exception) {
                 exception.printStackTrace();
@@ -261,6 +306,8 @@ public class AllPatientController {
         readAllAndShowInTableView();
         clearTextfields();
     }
+
+
 
     /**
      * Clears all contents from all <code>TextField</code>s.

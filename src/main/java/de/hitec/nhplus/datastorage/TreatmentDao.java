@@ -207,4 +207,9 @@ public class TreatmentDao extends DaoImp<Treatment> {
         }
         return preparedStatement;
     }
+
+    @Override
+    protected PreparedStatement getPIDStatment(long key) {
+        return null;
+    }
 }
