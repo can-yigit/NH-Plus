@@ -289,4 +289,20 @@ public class AllPatientController {
         return !this.textFieldFirstName.getText().isBlank() && !this.textFieldSurname.getText().isBlank() &&
                 !this.textFieldDateOfBirth.getText().isBlank() && !this.textFieldCareLevel.getText().isBlank();
     }
+
+    public void setPatientView(String darkColumn, boolean isDarkTheme) {
+        if (isDarkTheme){
+            columnFirstName.getStyleClass().remove(darkColumn);
+            columnSurname.getStyleClass().remove(darkColumn);
+            columnRoomNumber.getStyleClass().remove(darkColumn);
+            columnCareLevel.getStyleClass().remove(darkColumn);
+            columnDateOfBirth.getStyleClass().remove(darkColumn);
+        }else{
+            columnFirstName.getStyleClass().add(darkColumn);
+            columnSurname.getStyleClass().add(darkColumn);
+            columnRoomNumber.getStyleClass().add(darkColumn);
+            columnCareLevel.getStyleClass().add(darkColumn);
+            columnDateOfBirth.getStyleClass().add(darkColumn);
+        }
+    }
 }
