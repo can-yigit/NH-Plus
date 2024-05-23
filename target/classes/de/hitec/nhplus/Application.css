@@ -44,7 +44,3 @@ body {
 .darktableView{
     -fx-background-color: #333333;
 }
-
-.table-view.darktableView .column-header {
-    -fx-text-fill: #fff;
-}

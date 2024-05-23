@@ -1,7 +1,9 @@
 package de.hitec.nhplus.controller;
 
+import de.hitec.nhplus.datastorage.ConnectionBuilder;
 import de.hitec.nhplus.datastorage.DaoFactory;
 import de.hitec.nhplus.datastorage.PatientDao;
+import de.hitec.nhplus.utils.PatientDataExport;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -12,9 +14,15 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import de.hitec.nhplus.model.Patient;
 import de.hitec.nhplus.utils.DateConverter;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.IOException;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 
 /**
@@ -68,6 +76,7 @@ public class AllPatientController {
     private Button buttonBlock;
     private final ObservableList<Patient> patients = FXCollections.observableArrayList();
     private PatientDao dao;
+    Connection connection = ConnectionBuilder.getConnection();
 
     /**
      * When <code>initialize()</code> gets called, all fields are already initialized. For example from the FXMLLoader
@@ -227,6 +236,53 @@ public class AllPatientController {
             }
         }
     }
+
+
+    @FXML
+    public void exportToPDF() throws SQLException, IOException {
+        Patient selectedItem = this.tableView.getSelectionModel().getSelectedItem();
+        if (selectedItem == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Keine Auswahl");
+            alert.setHeaderText(null);
+            alert.setContentText("Bitte wählen Sie einen Patienten aus.");
+            alert.showAndWait();
+            return;
+        }
+
+        long pid = selectedItem.getPid();
+        PatientDataExport patientDataExport = new PatientDataExport(connection);
+
+        ArrayList<String[]> patientData = patientDataExport.getPatientDataById(pid);
+        ArrayList<String[]> treatmentData = patientDataExport.getTreatmentDataById(pid);
+
+        if (!patientData.isEmpty() && !treatmentData.isEmpty()) {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Speicherort für PDF auswählen");
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Dateien", "*.pdf"));
+            fileChooser.setInitialFileName("Patientenbehandlung.pdf");
+
+            Stage stage = (Stage) this.tableView.getScene().getWindow();
+            File file = fileChooser.showSaveDialog(stage);
+
+            if (file != null) {
+                String filePath = file.getAbsolutePath();
+                patientDataExport.pdfExporter(patientData, treatmentData, filePath);
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText(null);
+                alert.setContentText("Patientenbehandlung wurde heruntergeladen:\n" + filePath);
+                alert.showAndWait();
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Keine Behandlung gefunden");
+            alert.setHeaderText(null);
+            alert.setContentText("Es gibt keine Behandlungsdaten für diesen Patienten.");
+            alert.showAndWait();
+        }
+    }
+
 
     public void handleBlock() throws SQLException{
         Patient selectedItem = this.tableView.getSelectionModel().getSelectedItem();
