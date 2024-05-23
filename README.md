@@ -68,7 +68,6 @@ Um die Gesundheitsverwaltungssoftware zu verwenden, folgen Sie bitte diesen Schr
 ---
 
 ### 📝 5. Exportieren von Patientendaten als PDF
-# ``🚨 NICHT GEMACHT``
 - **Vorbedingung:** Die Patientendaten sind in der Anwendung geöffnet.
 - **Schritte:**
 > 1. Klicken Sie auf den Export-Button, um den Export der Patientendaten als PDF zu starten.
@@ -105,9 +104,9 @@ Um die Gesundheitsverwaltungssoftware zu verwenden, folgen Sie bitte diesen Schr
 |   Authentifizierung System    |      ✅       |            |
 | Entfernung des Vermögensstand |      ✅       |            |
 |        Löschanpassung         |              |     ✅      |
-|          PDF-Export           |              |     ❌      |
+|          PDF-Export           |              |     ✅      |
 |       Dark White Modus        |              |     ✅      |
 |        Termin Kalender        |      ✅       |            |
 |    Merge Konflikt Behebung    |      ✅       |            |
 |    Minor Updates / Fixing     |      ✅       |            |
-|      Zeilen geschrieben       | +2224 / -511 | +450~/ -30 |
+|      Zeilen geschrieben       | +2224 / -511 | +690~/ -34 |
