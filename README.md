@@ -88,7 +88,8 @@ Um die Gesundheitsverwaltungssoftware zu verwenden, folgen Sie bitte diesen Schr
 ### 📅 7. Extra Aufgabe: Termin Kalender
 - **Vorbedingung:** Die Standardseite wird angezeigt und du muss mit einem Pfleger Account angemeldet sein.
 - **Schritte:**
-> 1. Klicken Sie auf den Terminkalender-Button, um die Ansicht der Behandlungen für den heutigen Tag zu öffnen.
+> 1. Erstelle ein Termin für den Heutigen Tag unter behandlung und wähle den eingeloggten Pfleger aus.
+> 2. Klicken Sie auf den Terminkalender-Button, um die Ansicht der Behandlungen für den heutigen Tag zu öffnen.
 
 🎯 **Erwartetes Ergebnis:** Termine werden dem Datum entsprechend angezeigt.
 
